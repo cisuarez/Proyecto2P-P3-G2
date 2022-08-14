@@ -8,6 +8,7 @@ package Herramientas;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -47,6 +48,7 @@ public class ManejoArchivos {
             while ((linea = br.readLine()) != null) {
 //                System.out.println(linea);
                 lineas.add(linea);
+                //System.out.println(linea);
 
             }
 
@@ -102,7 +104,7 @@ public class ManejoArchivos {
         
     }
 
-   public static ArrayList<String[]> generarArreglo(String nombreArchivo, String separador){
+   public static ArrayList<String[]> generarArreglo(String nombreArchivo,String separador){
             //Se cree una lista de arreglos de Strings
             //Se crea una lista de Strings que guardará las líneas que devuelve el método LeeFichero
             //Luego se hace split a cada línea y cada arreglo de Strings se agrega a la lista de arreglos de 
@@ -112,7 +114,9 @@ public class ManejoArchivos {
             ArrayList<String[] > arregloFinal= new ArrayList();
             for(int a=1;a<variableGenerado.size();a++){
                 String[] linea=variableGenerado.get(a).split(separador); 
+                System.out.println(Arrays.toString(linea));
                 arregloFinal.add(linea);
+                
         }
         return arregloFinal;
     }
