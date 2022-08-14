@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Herramientas.ManejoArchivos;
 import java.util.ArrayList;
 
 /**
@@ -60,7 +61,13 @@ public class Equipo implements Comparable{
         
         return 0;
     }
-    public ArrayList<Equipo> cargarEquipo(){
+    public static ArrayList<Equipo> cargarEquipo(String nombreArchivo){
+        ArrayList<Equipo> arregloEquipo=new ArrayList();
+        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
+        for(String[] ele:listaArreglo){
+            System.out.println(ele);
+        }
+        
         
         return null;
         
