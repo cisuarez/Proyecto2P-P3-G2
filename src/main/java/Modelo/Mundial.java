@@ -4,6 +4,7 @@
  */
 package Modelo;
 import java.util.ArrayList;
+import Herramientas.ManejoArchivos;
 /**
  *
  * @author CJAA
@@ -31,9 +32,14 @@ public class Mundial {
         this.equipoCuarto = equipoCuarto;
     }
     
-//    public static ArrayList<Mundial> cargarMundiales(String nombreArchivo){
-//        
-//    }
+    public static ArrayList<Mundial> cargarMundiales(String nombreArchivo){
+        ArrayList<Mundial> arregloMundial=new ArrayList();
+        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
+        for(String[] ele:listaArreglo){
+            arregloMundial.add(new Mundial());
+        }
+        
+    }
 
     public int getAño() {
         return año;
