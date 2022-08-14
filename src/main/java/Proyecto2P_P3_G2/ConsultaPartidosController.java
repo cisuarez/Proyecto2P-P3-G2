@@ -24,17 +24,7 @@ public class ConsultaPartidosController implements Initializable {
     @FXML 
     private ComboBox<String> cbfase;
     
-    @FXML 
-    private ComboBox<String> cbgrupo;
-    
-    @FXML 
-    private ComboBox<String> cbequipo1;
-    
-    @FXML 
-    private ComboBox<String> cbequipo2;
-    
-    
-    
+
     @FXML 
      void consultar(){
 
