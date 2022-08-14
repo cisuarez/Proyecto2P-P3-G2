@@ -17,7 +17,7 @@
       <HBox alignment="CENTER" prefHeight="74.0" prefWidth="729.0" spacing="30.0">
          <children>
             <Label text="Año:" />
-            <TextField fx:id="lblConsulta" />
+            <TextField fx:id="txtConsulta" />
             <Button fx:id="btnConsultar" mnemonicParsing="false" text="CONSULTAR" />
          </children>
       </HBox>
