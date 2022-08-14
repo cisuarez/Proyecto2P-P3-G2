@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.ConsultaMundialesController">
-    <stylesheets>
-        <URL value="@consultamundiales.css"/>
-    </stylesheets>
-</AnchorPane>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.ConsultaMundialesController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="75.0" prefWidth="729.0">
+         <children>
+            <Label text="Consulta Históricas de Copas" />
+            <Label text="Mundiales" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="74.0" prefWidth="729.0" spacing="30.0">
+         <children>
+            <Label text="Año:" />
+            <TextField fx:id="lblConsulta" />
+            <Button fx:id="btnConsultar" mnemonicParsing="false" text="CONSULTAR" />
+         </children>
+      </HBox>
+      <Label fx:id="lblAvisoConsulta" />
+      <HBox prefHeight="285.0" prefWidth="729.0" />
+   </children>
+</VBox>
