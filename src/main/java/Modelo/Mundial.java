@@ -36,7 +36,9 @@ public class Mundial {
         ArrayList<Mundial> arregloMundial=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
-            arregloMundial.add(new Mundial());
+            //Year,Country,Winner,Runners-Up,Third,Fourth,GoalsScored,QualifiedTeams,MatchesPlayed,Attendance
+            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[5].trim()),Integer.valueOf(ele[6]).trim(),Integer
+            ));
         }
         
     }
