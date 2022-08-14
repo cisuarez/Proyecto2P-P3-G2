@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,7 +28,7 @@ import javafx.scene.layout.VBox;
 public class ConsultaMundialesController implements Initializable {
     
     @FXML
-    private Label lblConsulta;
+    private TextField txtConsulta;
     @FXML
     private Button btnConsultar;
     @FXML
@@ -44,7 +45,7 @@ public class ConsultaMundialesController implements Initializable {
             @Override
             public void handle(ActionEvent e){
 //                arrMundiales=Mundial.cargarMundiales("");
-                String año=lblConsulta.getText();
+                String año=txtConsulta.getText();
                 for(Mundial m:arrMundiales){
                     if (Integer.valueOf(año)==m.getAño()){
                         lblAvisoConsulta.setText("");
