@@ -19,7 +19,7 @@ public class Principal extends Application{
     
     @Override
     public void start(Stage s) throws IOException{
-        FXMLLoader fx=new FXMLLoader(Principal.class.getResource("ConsultaPartidos.fxml"));
+        FXMLLoader fx=new FXMLLoader(Principal.class.getResource("VentanaMenu.fxml"));
         Parent root=fx.load();
         Scene scene=new Scene(root);
         s.setScene(scene);
