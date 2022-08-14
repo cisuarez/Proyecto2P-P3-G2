@@ -12,16 +12,16 @@ import java.util.ArrayList;
  */
 public class Equipo implements Comparable{
     private String nombre;
-    private ArrayList<Jugador> jugadores;
+//    private ArrayList<Jugador> jugadores;
     private int mundialesGanados;
     private String directorTecnico;
 
-    public Equipo(String nombre, ArrayList<Jugador> jugadores, int mundialesGanados, String directorTecnico) {
-        this.nombre = nombre;
-        this.jugadores = jugadores;
-        this.mundialesGanados = mundialesGanados;
-        this.directorTecnico = directorTecnico;
-    }
+//    public Equipo(String nombre, ArrayList<Jugador> jugadores, int mundialesGanados, String directorTecnico) {
+//        this.nombre = nombre;
+//        this.jugadores = jugadores;
+//        this.mundialesGanados = mundialesGanados;
+//        this.directorTecnico = directorTecnico;
+//    }
 
     public String getNombre() {
         return nombre;
@@ -31,13 +31,13 @@ public class Equipo implements Comparable{
         this.nombre = nombre;
     }
 
-    public ArrayList<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(ArrayList<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }
+//    public ArrayList<Jugador> getJugadores() {
+//        return jugadores;
+//    }
+//
+//    public void setJugadores(ArrayList<Jugador> jugadores) {
+//        this.jugadores = jugadores;
+//    }
 
     public int getMundialesGanados() {
         return mundialesGanados;
