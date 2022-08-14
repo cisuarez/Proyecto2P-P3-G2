@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox fx:id="seccionEncabezado" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="lblTitulo" text="Copa Mundial de la FIFA Brasil 2014" />
+            <ImageView fx:id="imgvMiniatura" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/logoWorldCup.jpg" />
+               </image></ImageView>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="imgvPortada" fitHeight="150.0" fitWidth="453.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../Images/portada1.jpg" />
+               </image></ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="seccionBotones" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnPartidos" mnemonicParsing="false" text="CONSULTA DE PARTIDOS" />
+            <Button fx:id="btnCopas" mnemonicParsing="false" text="CONSULTA DE COPAS MUNDIALES" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
