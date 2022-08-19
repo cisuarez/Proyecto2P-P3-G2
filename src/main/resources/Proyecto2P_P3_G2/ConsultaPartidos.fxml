@@ -31,7 +31,7 @@
                   <Insets right="50.0" />
                </HBox.margin>
             </ComboBox>
-            <Label text="Grupo:">
+            <Label fx:id="lbgrupo" text="Grupo:">
                <HBox.margin>
                   <Insets left="50.0" right="10.0" />
                </HBox.margin>
@@ -41,28 +41,28 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="574.0">
          <children>
-            <Label fx:id="cbequipo1" text="Equipo 1:">
+            <Label text="Equipo 1:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <ComboBox prefWidth="150.0">
+            <ComboBox fx:id="cbequpo1" prefWidth="150.0">
                <HBox.margin>
                   <Insets right="50.0" />
                </HBox.margin>
             </ComboBox>
             <Label text="vs" />
-            <Label fx:id="cbequipo2" text="Equipo 2:">
+            <Label text="Equipo 2:">
                <HBox.margin>
                   <Insets left="30.0" right="10.0" />
                </HBox.margin>
             </Label>
-            <ComboBox prefWidth="150.0" />
+            <ComboBox fx:id="cbequipo2" prefWidth="150.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0">
          <children>
-            <Button fx:id="btnconsultar" mnemonicParsing="false" onAction="#consultar" prefHeight="24.0" prefWidth="114.0" text="Consultar" />
+            <Button fx:id="btnconsultar" mnemonicParsing="false" onAction="#consultar" prefHeight="24.0" prefWidth="114.0" style="-fx-background-color: #20def7;" text="Consultar" textFill="WHITE" />
          </children>
       </HBox>
       <HBox prefHeight="30.0" prefWidth="600.0" />
