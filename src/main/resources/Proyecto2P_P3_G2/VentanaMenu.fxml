@@ -42,11 +42,11 @@
       </HBox>
       <HBox fx:id="seccionBotones" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnPartidos" mnemonicParsing="false" style="-fx-background-color: #2C9DE1;" text="CONSULTA DE PARTIDOS" textFill="WHITE">
+            <Button fx:id="btnPartidos" mnemonicParsing="false" style="-fx-background-color: #1cacde;" text="CONSULTA DE PARTIDOS" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="20.0" left="100.0" right="20.0" top="20.0" />
                </HBox.margin></Button>
-            <Button fx:id="btnCopas" mnemonicParsing="false" style="-fx-background-color: #2C9DE1;" text="CONSULTA DE COPAS MUNDIALES" textFill="WHITE">
+            <Button fx:id="btnCopas" mnemonicParsing="false" style="-fx-background-color: #1cacde;" text="CONSULTA DE COPAS MUNDIALES" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </HBox.margin></Button>
