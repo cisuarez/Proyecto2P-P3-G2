@@ -5,23 +5,33 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.ConsultaMundialesController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="729.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.ConsultaMundialesController">
    <children>
       <VBox alignment="CENTER" prefHeight="75.0" prefWidth="729.0">
          <children>
-            <Label text="Consulta Históricas de Copas" />
-            <Label text="Mundiales" />
+            <Label text="Consulta Históricas de Copas">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Label>
+            <Label text="Mundiales">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Label>
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="74.0" prefWidth="729.0" spacing="30.0">
          <children>
             <Label text="Año:" />
             <TextField fx:id="txtConsulta" />
-            <Button fx:id="btnConsultar" mnemonicParsing="false" text="CONSULTAR" />
+            <Button fx:id="btnConsultar" mnemonicParsing="false" prefHeight="21.0" prefWidth="118.0" style="-fx-background-color: #1cacde;" text="CONSULTAR" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
          </children>
       </HBox>
       <Label fx:id="lblAvisoConsulta" />
-      <HBox prefHeight="285.0" prefWidth="729.0" />
+      <HBox fx:id="seccionDinamica" prefHeight="285.0" prefWidth="729.0" />
    </children>
 </VBox>
