@@ -49,7 +49,7 @@ public class Jugador {
         ArrayList<Jugador> arregloJugador=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
-           arregloJugador.add(new Jugador(ele[6].trim(),ele[],ele[7].trim()));
+           
         }
         return null;
     }
