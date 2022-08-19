@@ -5,6 +5,7 @@
 package Modelo;
 import java.util.ArrayList;
 import Herramientas.ManejoArchivos;
+import Proyecto2P_P3_G2.Principal;
 /**
  *
  * @author CJAA
@@ -37,10 +38,25 @@ public class Mundial {
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
             //Year,Country,Winner,Runners-Up,Third,Fourth,GoalsScored,QualifiedTeams,MatchesPlayed,Attendance
-            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[5].trim()),Integer.valueOf(ele[6]).trim(),Integer
-            ));
+            ArrayList<Equipo> equipos=Equipo.cargarEquipo(Principal.pathFiles+"WorldCups.csv");
+            Equipo ganador=null;
+            Equipo segundo=null;
+            Equipo tercero=null;
+            Equipo cuarto=null;
+            for(Equipo e:equipos){
+                if(e.getNombre().equals(ele[2].trim())){
+                    ganador=e;
+                }else if(e.getNombre().equals(ele[3].trim())){
+                    segundo=e;
+                }else if(e.getNombre().equals(ele[4].trim())){
+                    tercero=e;
+                }else if(e.getNombre().equals(ele[5].trim())){
+                    cuarto=e;
+                }
+            }
+            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[6].trim()),Integer.valueOf(ele[7].trim()),Integer.valueOf(ele[9].trim()),Integer.valueOf(ele[8].trim()),ganador,segundo,tercero,cuarto));
         }
-        
+        return arregloMundial;
     }
 
     public int getAño() {
