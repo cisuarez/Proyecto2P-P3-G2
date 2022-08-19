@@ -4,6 +4,7 @@
  */
 package Proyecto2P_P3_G2;
 
+import Modelo.Equipo;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,15 +18,27 @@ import javafx.stage.Stage;
  */
 public class Principal extends Application{
     
+    private static Scene scene;
+    public static String pathFiles="src/main/resources/files/";
+
     @Override
-    public void start(Stage s) throws IOException{
-        FXMLLoader fx=new FXMLLoader(Principal.class.getResource("VentanaMenu.fxml"));
-        Parent root=fx.load();
-        Scene scene=new Scene(root);
-        s.setScene(scene);
-        s.show();
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("VentanaMenu"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
     }
     public static void main(String[] args) {
         launch();
+        
     }
+    
 }
