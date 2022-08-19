@@ -23,7 +23,7 @@ public class Partido {
     private String fase;
     private char grupo;
 
-    public Partido(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase, char grupo) {
+    public Partido(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase) {
         this.fecha = fecha;
         this.hora = hora;
         this.estadio = estadio;
@@ -32,7 +32,6 @@ public class Partido {
         this.equipoVisitante = equipoVisitante;
         this.marcador = marcador;
         this.fase = fase;
-        this.grupo = grupo;
     }
 
     public String getFecha() {
@@ -111,10 +110,21 @@ public class Partido {
         ArrayList<Partido> arregloPartido=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
         for(String[] ele:listaArreglo){
-            arregloPartido.add(new Partido(ele[0].trim(),ele[1].trim(),ele[2].trim(),ele[3].trim(), ele[4].trim(),ele[5].trim(),ele[6].trim(),ele[7].trim(),ele[8].trim().charAt(0)));
+            //(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase)
+            Partido partidito= new Partido(ele[1].split("-")[0].trim(),ele[1].split("-")[1].trim(),ele[3].trim(),ele[4].trim(), ele[5].trim(),ele[8].trim(),ele[6].trim()+"-"+ele[7].trim(),ele[2].trim());
+            if(ele[2].split(" ")[0].equals("Group")){
+               partidito.setGrupo(ele[2].split(" ")[1].charAt(0));
+               
+            }
+//            System.out.println(partidito.getEquipoLocal());
+//            System.out.println(partidito.getEquipoVisitante());
+//            System.out.println(partidito.getGrupo());
+            arregloPartido.add(partidito);
         }
         return arregloPartido;
     }
+    
+ 
     
     
     @Override
