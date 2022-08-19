@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="rootMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.VentanaMenuController">
    <children>
       <HBox fx:id="seccionEncabezado" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -42,7 +42,7 @@
       </HBox>
       <HBox fx:id="seccionBotones" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnPartidos" mnemonicParsing="false" style="-fx-background-color: #1cacde;" text="CONSULTA DE PARTIDOS" textFill="WHITE">
+            <Button fx:id="btnPartidos" mnemonicParsing="false" onAction="#cambiarConsultaPartidos" style="-fx-background-color: #1cacde;" text="CONSULTA DE PARTIDOS" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="20.0" left="100.0" right="20.0" top="20.0" />
                </HBox.margin></Button>
