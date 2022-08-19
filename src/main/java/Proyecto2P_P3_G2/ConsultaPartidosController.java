@@ -71,6 +71,7 @@ public class ConsultaPartidosController implements Initializable {
                     case "Grupos":
                         cbgrupo.setVisible(true);
                         lbgrupo.setVisible(true);
+                        cbgrupo.getItems().clear();
                         cbgrupo.getItems().addAll("A","B","C","D","E","F","G","H");
                         cbgrupo.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                               @Override
