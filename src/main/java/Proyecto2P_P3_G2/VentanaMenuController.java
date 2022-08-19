@@ -4,8 +4,10 @@
  */
 package Proyecto2P_P3_G2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -22,5 +24,9 @@ public class VentanaMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    @FXML
+    private void cambiarConsultaPartidos() throws IOException {
+        Principal.setRoot("ConsultaPartidos");
+    }
     
 }
