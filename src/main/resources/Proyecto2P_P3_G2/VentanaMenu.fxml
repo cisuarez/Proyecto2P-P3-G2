@@ -1,35 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="rootMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox fx:id="seccionEncabezado" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblTitulo" text="Copa Mundial de la FIFA Brasil 2014" />
-            <ImageView fx:id="imgvMiniatura" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <Label fx:id="lblTitulo" prefHeight="40.0" prefWidth="473.0" text="Copa Mundial de la FIFA Brasil 2014">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" right="10.0" top="20.0" />
+               </HBox.margin></Label>
+            <ImageView fx:id="imgvMiniatura" fitHeight="97.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/logoWorldCup.jpg" />
-               </image></ImageView>
+               </image>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></ImageView>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="imgvPortada" fitHeight="150.0" fitWidth="453.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+            <ImageView fx:id="imgvPortada" fitHeight="224.0" fitWidth="356.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../Images/portada1.jpg" />
-               </image></ImageView>
+               </image>
+               <HBox.margin>
+                  <Insets left="120.0" />
+               </HBox.margin></ImageView>
          </children>
       </HBox>
       <HBox fx:id="seccionBotones" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnPartidos" mnemonicParsing="false" text="CONSULTA DE PARTIDOS" />
-            <Button fx:id="btnCopas" mnemonicParsing="false" text="CONSULTA DE COPAS MUNDIALES" />
+            <Button fx:id="btnPartidos" mnemonicParsing="false" style="-fx-background-color: #2C9DE1;" text="CONSULTA DE PARTIDOS" textFill="WHITE">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="100.0" right="20.0" top="20.0" />
+               </HBox.margin></Button>
+            <Button fx:id="btnCopas" mnemonicParsing="false" style="-fx-background-color: #2C9DE1;" text="CONSULTA DE COPAS MUNDIALES" textFill="WHITE">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </children>
