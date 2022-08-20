@@ -8,6 +8,7 @@ import static Proyecto2P_P3_G2.Principal.loadFXML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -28,7 +29,7 @@ public class VentanaMenuController implements Initializable {
         // TODO
     }    
     @FXML
-    private void cambiarConsultaPartidos() throws IOException {
+    private void cambiarConsultaPartidos(ActionEvent event) throws IOException {
         Scene scene = new Scene(Principal.loadFXML("ConsultaPartidos"), 640, 480);
         Stage stage=new Stage();
         stage.setScene(scene);
@@ -37,7 +38,7 @@ public class VentanaMenuController implements Initializable {
         
     }
     @FXML
-    private void cambiarConsultaCopasMundiales() throws IOException {
+    private void cambiarConsultaCopasMundiales(ActionEvent event) throws IOException {
         Scene scene = new Scene(Principal.loadFXML("ConsultaMundiales"), 640, 480);
         Stage stage=new Stage();
         stage.setScene(scene);
