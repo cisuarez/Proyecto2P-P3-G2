@@ -5,7 +5,6 @@
 package Modelo;
 import java.util.ArrayList;
 import Herramientas.ManejoArchivos;
-import Proyecto2P_P3_G2.Principal;
 /**
  *
  * @author CJAA
@@ -14,14 +13,14 @@ public class Mundial {
     private int año;
     private int golesAnotados;
     private int cantidadEquipos;
-    private int cantidadAsistencia;
+    private String cantidadAsistencia;
     private int partidosJugados;
     Equipo equipoGanador;
     Equipo equipoSegundo;
     Equipo equipoTercero;
     Equipo equipoCuarto;
 
-    public Mundial(int año, int golesAnotados, int cantidadEquipos, int cantidadAsistencia, int partidosJugados, Equipo equipoGanador, Equipo equipoSegundo, Equipo equipoTercero, Equipo equipoCuarto) {
+    public Mundial(int año, int golesAnotados, int cantidadEquipos, String cantidadAsistencia, int partidosJugados, Equipo equipoGanador, Equipo equipoSegundo, Equipo equipoTercero, Equipo equipoCuarto) {
         this.año = año;
         this.golesAnotados = golesAnotados;
         this.cantidadEquipos = cantidadEquipos;
@@ -38,27 +37,19 @@ public class Mundial {
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
             //Year,Country,Winner,Runners-Up,Third,Fourth,GoalsScored,QualifiedTeams,MatchesPlayed,Attendance
-            ArrayList<Equipo> equipos=Equipo.cargarEquipo(Principal.pathFiles+"WorldCups.csv");
-            Equipo ganador=null;
-            Equipo segundo=null;
-            Equipo tercero=null;
-            Equipo cuarto=null;
-            for(Equipo e:equipos){
-                if(e.getNombre().equals(ele[2].trim())){
-                    ganador=e;
-                }else if(e.getNombre().equals(ele[3].trim())){
-                    segundo=e;
-                }else if(e.getNombre().equals(ele[4].trim())){
-                    tercero=e;
-                }else if(e.getNombre().equals(ele[5].trim())){
-                    cuarto=e;
+            Equipo ganador=new Equipo(ele[2].trim());
+            for(String[]dato:listaArreglo){
+                if(dato[2].trim().equals(ganador.getNombre())){
+                    ganador.setMundialesGanados(ganador.getMundialesGanados()+1);
                 }
             }
-            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[6].trim()),Integer.valueOf(ele[7].trim()),Integer.valueOf(ele[9].trim()),Integer.valueOf(ele[8].trim()),ganador,segundo,tercero,cuarto));
+            Equipo segundo=new Equipo(ele[3].trim());
+            Equipo tercero=new Equipo(ele[4].trim());
+            Equipo cuarto=new Equipo(ele[5].trim());
+            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[6].trim()),Integer.valueOf(ele[7].trim()),ele[9].trim(),Integer.valueOf(ele[8].trim()),ganador,segundo,tercero,cuarto));
         }
         return arregloMundial;
     }
-
     public int getAño() {
         return año;
     }
@@ -83,11 +74,11 @@ public class Mundial {
         this.cantidadEquipos = cantidadEquipos;
     }
 
-    public int getCantidadAsistencia() {
+    public String getCantidadAsistencia() {
         return cantidadAsistencia;
     }
 
-    public void setCantidadAsistencia(int cantidadAsistencia) {
+    public void setCantidadAsistencia(String cantidadAsistencia) {
         this.cantidadAsistencia = cantidadAsistencia;
     }
 
