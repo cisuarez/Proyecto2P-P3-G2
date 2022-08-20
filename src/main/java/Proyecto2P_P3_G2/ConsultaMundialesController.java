@@ -5,17 +5,24 @@
 package Proyecto2P_P3_G2;
 
 import Modelo.Mundial;
+import Herramientas.ManejoArchivos;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -62,8 +69,10 @@ public class ConsultaMundialesController implements Initializable {
             }
         }
         if(m!=null){
+            seccionDinamica.setPadding(new Insets(30));
+            seccionDinamica.setSpacing(150);
             mostrarSeccionPremios(m);
-                mostrarSeccionDatosGenerales(m);
+            mostrarSeccionDatosGenerales(m);
         }else{
             lblAvisoConsulta.setText("No se han encontrado registros");
         }
@@ -72,51 +81,50 @@ public class ConsultaMundialesController implements Initializable {
 
     public void mostrarSeccionPremios(Mundial m) {
         lblAvisoConsulta.setText("");
-        VBox seccionPremios = new VBox();
-        Label lblPremios = new Label("Premios");
-        Separator sepPremios = new Separator();
-        HBox hbGanador = new HBox();
-        Label lblGanador = new Label("Ganador");
-        ImageView imgvGanador = new ImageView();
-        Label lblEquipoGanador = new Label(m.getEquipoGanador().getNombre());
-        ImageView imgvCopasGanador = new ImageView();
-        HBox hbSegundo = new HBox();
-        Label lblSegundo = new Label("Ganador");
-        ImageView imgvSegundo = new ImageView();
-        Label lblEquipoSegundo = new Label(m.getEquipoSegundo().getNombre());
-        ImageView imgvCopasSegundo = new ImageView();
-        HBox hbTercero = new HBox();
-        Label lblTercero = new Label("Ganador");
-        ImageView imgvTercero = new ImageView();
-        Label lblEquipoTercero = new Label(m.getEquipoTercero().getNombre());
-        ImageView imgvCopasTercero = new ImageView();
-        HBox hbCuarto = new HBox();
-        Label lblCuarto = new Label("Ganador");
-        ImageView imgvCuarto = new ImageView();
-        Label lblEquipoCuarto = new Label(m.getEquipoCuarto().getNombre());
-        ImageView imgvCopasCuarto = new ImageView();
-        hbGanador.getChildren().addAll(lblGanador, imgvGanador, lblEquipoGanador, imgvCopasGanador);
-        hbGanador.setSpacing(10);
-        hbSegundo.getChildren().addAll(lblSegundo, imgvSegundo, lblEquipoSegundo, imgvCopasSegundo);
-        hbSegundo.setSpacing(10);
-        hbTercero.getChildren().addAll(lblTercero, imgvTercero, lblEquipoTercero, imgvCopasTercero);
-        hbTercero.setSpacing(10);
-        hbCuarto.getChildren().addAll(lblCuarto, imgvCuarto, lblEquipoCuarto, imgvCopasCuarto);
-        hbCuarto.setSpacing(10);
-        seccionPremios.getChildren().addAll(lblPremios, sepPremios, hbGanador, hbSegundo, hbTercero, hbCuarto);
-        seccionPremios.setSpacing(20);
+        VBox seccionPremios=new VBox();
+        Label lblPremios=new Label("Premios");
+        Separator sepPremios=new Separator();
+        lblPremios.setStyle("-fx-font-size: 16");
+        HBox hbPremios=new HBox();
+        VBox vbPosiciones=new VBox();
+        VBox vbPaises=new VBox();
+        VBox vbCopas=new VBox();
+        crearSeccion(m,vbPosiciones,vbPaises,vbCopas);
+        hbPremios.getChildren().addAll(vbPosiciones,vbPaises,vbCopas);
+        seccionPremios.getChildren().addAll(lblPremios,sepPremios,hbPremios);
         seccionDinamica.getChildren().add(seccionPremios);
     }
     public void mostrarSeccionDatosGenerales(Mundial m){
         VBox seccionDatosGenerales=new VBox();
         Label lblDatosGenerales=new Label("Datos Generales");
+        lblDatosGenerales.setStyle("-fx-font-size: 16");
         Separator sepDatos=new Separator();
         Label lblGoles=new Label("Goles anotados: "+m.getGolesAnotados());
         Label lblEquipos=new Label("Equipos: "+m.getCantidadEquipos());
         Label lblPartidosJugados=new Label("Partidos jugados: "+m.getPartidosJugados());
         Label lblAsistencia=new Label("Asistencia: "+m.getCantidadAsistencia());
         seccionDatosGenerales.getChildren().addAll(lblDatosGenerales,sepDatos,lblGoles,lblEquipos,lblPartidosJugados,lblAsistencia);
-        seccionDatosGenerales.setSpacing(20);
+        seccionDatosGenerales.setSpacing(10);
         seccionDinamica.getChildren().add(seccionDatosGenerales);
+    }
+    public void crearSeccion(Mundial m,VBox posiciones,VBox paises,VBox copas){
+        for(int i=0;i<4;i++){
+            String[] lugares={"Ganador","Segundo","Tercero","Cuarto"};
+            Label lblPosicion=new Label(lugares[i]);
+            Label lblEquipo=new Label(m.getFinalistas().get(i).getNombre());
+            HBox pais=new HBox();
+            pais.getChildren().add(lblEquipo);
+            HBox paisCopas=new HBox();
+            Image imgCopa=ManejoArchivos.abrirImagen("src/main/resources/Images/copa.png");
+            for(int a=0;a<m.getFinalistas().get(i).getMundialesGanados();a++){
+                ImageView imgv=new ImageView(imgCopa);
+                imgv.setFitHeight(15);
+                imgv.setPreserveRatio(true);
+                paisCopas.getChildren().add(imgv);
+            }
+            copas.getChildren().add(paisCopas);
+            posiciones.getChildren().add(lblPosicion);
+            paises.getChildren().add(pais);
+        }
     }
 }
