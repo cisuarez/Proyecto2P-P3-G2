@@ -41,6 +41,8 @@ public class ConsultaPartidosController implements Initializable {
     @FXML 
     private ComboBox<String> cbequipo2;
     
+    public static ArrayList<Partido> partidos=Partido.cargarPartidos("src/main/resources/Archivos_CSV/WorldCupMatchesBrasil2014.csv");
+    
 
     @FXML 
      void consultar(){
@@ -49,7 +51,15 @@ public class ConsultaPartidosController implements Initializable {
     
 
      }
-     
+     public static ArrayList<String> llenarGrupo(char a){
+         ArrayList<String> equiposA=new ArrayList();
+           for(Partido parti: partidos){
+                if(parti.getGrupo()==a&&equiposA.contains(parti.getEquipoLocal())==false){
+                 equiposA.add(parti.getEquipoLocal());
+                  }                      
+                  }
+           return equiposA;
+     }
     
      
     @Override
@@ -78,57 +88,44 @@ public class ConsultaPartidosController implements Initializable {
                               public void handle(ActionEvent e) {
                               switch (cbgrupo.getValue()) {
                                   case "A":
-                                      ArrayList<String> equiposA=new ArrayList();
-                                    for(Partido parti: partidos){
-                                        if(parti.getGrupo()=='A'&&equiposA.contains(parti.getEquipoLocal())==false){
-                                           equiposA.add(parti.getEquipoLocal());
-                                        }
-                                        
-                                    } 
-                                      System.out.println(equiposA);
-                                    cbequpo1.getItems().setAll(equiposA);
-                                    cbequipo2.getItems().setAll(equiposA);
+                                      ArrayList<String> equiposA=ConsultaPartidosController.llenarGrupo('A');
+                                        cbequpo1.getItems().setAll(equiposA);
+                                        cbequipo2.getItems().setAll(equiposA);
                                   break;
                                   case "B":
-                                     ArrayList<String> equiposB=new ArrayList();
-                                    for(Partido parti: partidos){
-                                        if(parti.getGrupo()=='B'&&equiposB.contains(parti.getEquipoLocal())==false){
-                                           equiposB.add(parti.getEquipoLocal());
-                                        }
-                                    } 
-                                      System.out.println(equiposB);
-                                    cbequpo1.getItems().setAll(equiposB);
-                                    cbequipo2.getItems().setAll(equiposB);
+                                     ArrayList<String> equiposB= ConsultaPartidosController.llenarGrupo('B');
+                                        cbequpo1.getItems().setAll(equiposB);
+                                        cbequipo2.getItems().setAll(equiposB);
                                   break;
                                   case "C":
-                                    for(Partido parti: partidos){
-                                        
-                                    } 
+                                    ArrayList<String> equiposC= ConsultaPartidosController.llenarGrupo('C');
+                                        cbequpo1.getItems().setAll(equiposC);
+                                        cbequipo2.getItems().setAll(equiposC);
                                   break;
                                   case "D":
-                                     for(Partido parti: partidos){
-                                        
-                                    }
+                                    ArrayList<String> equiposD= ConsultaPartidosController.llenarGrupo('D');
+                                        cbequpo1.getItems().setAll(equiposD);
+                                        cbequipo2.getItems().setAll(equiposD);
                                   break;
                                   case "E":
-                                     for(Partido parti: partidos){
-                                        
-                                    }
+                                     ArrayList<String> equiposE= ConsultaPartidosController.llenarGrupo('E');
+                                        cbequpo1.getItems().setAll(equiposE);
+                                        cbequipo2.getItems().setAll(equiposE);
                                   break;
                                   case "F":
-                                     for(Partido parti: partidos){
-                                        
-                                    }
+                                     ArrayList<String> equiposF= ConsultaPartidosController.llenarGrupo('F');
+                                        cbequpo1.getItems().setAll(equiposF);
+                                        cbequipo2.getItems().setAll(equiposF);
                                   break;
                                   case "G":
-                                     for(Partido parti: partidos){
-                                        
-                                    }
+                                     ArrayList<String> equiposG= ConsultaPartidosController.llenarGrupo('G');
+                                        cbequpo1.getItems().setAll(equiposG);
+                                        cbequipo2.getItems().setAll(equiposG);
                                   break;
                                   case "H":
-                                     for(Partido parti: partidos){
-                                        
-                                    }
+                                     ArrayList<String> equiposH= ConsultaPartidosController.llenarGrupo('H');
+                                        cbequpo1.getItems().setAll(equiposH);
+                                        cbequipo2.getItems().setAll(equiposH);
                                   break;
                                     
                                   default:
@@ -141,10 +138,14 @@ public class ConsultaPartidosController implements Initializable {
                     case "Ronda de 16":
                         cbgrupo.setVisible(false);
                         lbgrupo.setVisible(false);
+                        
+                        
                         break;
                     case "Cuartos de Final":
                         cbgrupo.setVisible(false);
                         lbgrupo.setVisible(false);
+                        
+                        
                         break;
                     case "Semifinal":
                         cbgrupo.setVisible(false);
