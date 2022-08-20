@@ -15,38 +15,35 @@ public class Mundial {
     private int cantidadEquipos;
     private String cantidadAsistencia;
     private int partidosJugados;
-    Equipo equipoGanador;
-    Equipo equipoSegundo;
-    Equipo equipoTercero;
-    Equipo equipoCuarto;
-
-    public Mundial(int año, int golesAnotados, int cantidadEquipos, String cantidadAsistencia, int partidosJugados, Equipo equipoGanador, Equipo equipoSegundo, Equipo equipoTercero, Equipo equipoCuarto) {
+    private ArrayList<Equipo> finalistas;
+    public Mundial(int año, int golesAnotados, int cantidadEquipos, String cantidadAsistencia, int partidosJugados, ArrayList<Equipo> finalistas) {
         this.año = año;
         this.golesAnotados = golesAnotados;
         this.cantidadEquipos = cantidadEquipos;
         this.cantidadAsistencia = cantidadAsistencia;
         this.partidosJugados = partidosJugados;
-        this.equipoGanador = equipoGanador;
-        this.equipoSegundo = equipoSegundo;
-        this.equipoTercero = equipoTercero;
-        this.equipoCuarto = equipoCuarto;
+        this.finalistas = finalistas;
     }
+
+   
     
     public static ArrayList<Mundial> cargarMundiales(String nombreArchivo){
         ArrayList<Mundial> arregloMundial=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
             //Year,Country,Winner,Runners-Up,Third,Fourth,GoalsScored,QualifiedTeams,MatchesPlayed,Attendance
+            ArrayList<Equipo> finalistas=new ArrayList<>();
             Equipo ganador=new Equipo(ele[2].trim());
             for(String[]dato:listaArreglo){
                 if(dato[2].trim().equals(ganador.getNombre())){
                     ganador.setMundialesGanados(ganador.getMundialesGanados()+1);
                 }
             }
-            Equipo segundo=new Equipo(ele[3].trim());
-            Equipo tercero=new Equipo(ele[4].trim());
-            Equipo cuarto=new Equipo(ele[5].trim());
-            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[6].trim()),Integer.valueOf(ele[7].trim()),ele[9].trim(),Integer.valueOf(ele[8].trim()),ganador,segundo,tercero,cuarto));
+            finalistas.add(ganador);
+            finalistas.add(new Equipo(ele[3].trim()));
+            finalistas.add(new Equipo(ele[4].trim()));
+            finalistas.add(new Equipo(ele[5].trim()));
+            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[6].trim()),Integer.valueOf(ele[7].trim()),ele[9].trim(),Integer.valueOf(ele[8].trim()),finalistas));
         }
         return arregloMundial;
     }
@@ -90,36 +87,12 @@ public class Mundial {
         this.partidosJugados = partidosJugados;
     }
 
-    public Equipo getEquipoGanador() {
-        return equipoGanador;
+    public ArrayList<Equipo> getFinalistas() {
+        return finalistas;
     }
 
-    public void setEquipoGanador(Equipo equipoGanador) {
-        this.equipoGanador = equipoGanador;
-    }
-
-    public Equipo getEquipoSegundo() {
-        return equipoSegundo;
-    }
-
-    public void setEquipoSegundo(Equipo equipoSegundo) {
-        this.equipoSegundo = equipoSegundo;
-    }
-
-    public Equipo getEquipoTercero() {
-        return equipoTercero;
-    }
-
-    public void setEquipoTercero(Equipo equipoTercero) {
-        this.equipoTercero = equipoTercero;
-    }
-
-    public Equipo getEquipoCuarto() {
-        return equipoCuarto;
-    }
-
-    public void setEquipoCuarto(Equipo equipoCuarto) {
-        this.equipoCuarto = equipoCuarto;
+    public void setFinalistas(ArrayList<Equipo> finalistas) {
+        this.finalistas = finalistas;
     }
     
 }
