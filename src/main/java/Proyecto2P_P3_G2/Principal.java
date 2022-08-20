@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class Principal extends Application{
     
     private static Scene scene;
-    public static String pathFiles="src/main/resources/files/";
+    public static String pathFiles="src/main/resources/Archivos_CSV/";
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -32,7 +32,7 @@ public class Principal extends Application{
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
