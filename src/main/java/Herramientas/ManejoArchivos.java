@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -120,4 +121,15 @@ public class ManejoArchivos {
         }
         return arregloFinal;
     }
+   public static Image abrirImagen(String nombreImagen){
+       Image img=null;
+       try(FileInputStream f=new FileInputStream(nombreImagen)){
+           img=new Image(f);
+       }catch(FileNotFoundException f){
+           System.out.println("No se encontró el archivo solicitado");
+       }catch(IOException i){
+           System.out.println("Hubo un error, inténtalo más tarde");
+       }
+       return img;
+   }
 }
