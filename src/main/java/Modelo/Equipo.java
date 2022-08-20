@@ -65,7 +65,7 @@ public class Equipo implements Comparable<Equipo>{
     
     @Override
     public boolean equals(Object o){
-        if(this.getClass()!=null&&this.getClass()==Equipo.class){
+        if(o!=null&&o.getClass()==Equipo.class){
             Equipo e=(Equipo)o;
             return this.getNombre().equals(e.getNombre());
         }else{ 
