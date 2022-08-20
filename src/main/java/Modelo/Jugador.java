@@ -60,7 +60,7 @@ public class Jugador {
         ArrayList<Jugador> arregloJugador=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
-           arregloJugador.add(new Jugador(ele[6].trim(),ele[6].trim()+"png",Integer.parseInt(ele[5].trim()),ele[3]));
+           arregloJugador.add(new Jugador(ele[6].trim(),ele[6]+"png",Integer.parseInt(ele[5].trim()),ele[3]));
         }
         return arregloJugador;
     }
