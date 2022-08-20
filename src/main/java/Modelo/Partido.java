@@ -17,13 +17,13 @@ public class Partido {
     private String hora;
     private String estadio;
     private String ciudad;
-    private String equipoLocal;
-    private String equipoVisitante;
+    private Equipo equipoLocal;
+    private Equipo equipoVisitante;
     private String marcador;
     private String fase;
     private char grupo;
 
-    public Partido(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase) {
+    public Partido(String fecha, String hora, String estadio, String ciudad, Equipo equipoLocal, Equipo equipoVisitante, String marcador, String fase) {
         this.fecha = fecha;
         this.hora = hora;
         this.estadio = estadio;
@@ -66,19 +66,19 @@ public class Partido {
         this.ciudad = ciudad;
     }
 
-    public String getEquipoLocal() {
+    public Equipo getEquipoLocal() {
         return equipoLocal;
     }
 
-    public void setEquipoLocal(String equipoLocal) {
+    public void setEquipoLocal(Equipo equipoLocal) {
         this.equipoLocal = equipoLocal;
     }
 
-    public String getEquipoVisitante() {
+    public Equipo getEquipoVisitante() {
         return equipoVisitante;
     }
 
-    public void setEquipoVisitante(String equipoVisitante) {
+    public void setEquipoVisitante(Equipo equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
     }
 
@@ -111,7 +111,7 @@ public class Partido {
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
         for(String[] ele:listaArreglo){
             //(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase)
-            Partido partidito= new Partido(ele[1].split("-")[0].trim(),ele[1].split("-")[1].trim(),ele[3].trim(),ele[4].trim(), ele[5].trim(),ele[8].trim(),ele[6].trim()+"-"+ele[7].trim(),ele[2].trim());
+            Partido partidito= new Partido(ele[1].split("-")[0].trim(),ele[1].split("-")[1].trim(),ele[3].trim(),ele[4].trim(), new Equipo(ele[5].trim(),ele[18].trim()),new Equipo(ele[8].trim(),ele[19].trim()),ele[6].trim()+"-"+ele[7].trim(),ele[2].trim());
             if(ele[2].split(" ")[0].equals("Group")){
                partidito.setGrupo(ele[2].split(" ")[1].charAt(0));
                
