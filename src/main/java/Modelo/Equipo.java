@@ -4,6 +4,7 @@
  */
 package Modelo;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -14,6 +15,12 @@ public class Equipo implements Comparable<Equipo>{
 //    private ArrayList<Jugador> jugadores;
     private int mundialesGanados;
     private String abreviatura;
+
+    public Equipo(String nombre, String abreviatura) {
+        this.nombre = nombre;
+        this.abreviatura = abreviatura;
+    }
+    
 
     public Equipo(String nombre) {
         this.nombre = nombre;
@@ -57,8 +64,30 @@ public class Equipo implements Comparable<Equipo>{
     }
     
     @Override
+    public boolean equals(Object o){
+        if(this.getClass()!=null&&this.getClass()==Equipo.class){
+            Equipo e=(Equipo)o;
+            return this.getNombre().equals(e.getNombre());
+        }else{ 
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(nombre);
+//    }
+    
+    @Override
     public int compareTo(Equipo e) {
         return this.nombre.compareTo(e.nombre);
     }
-
+  
 }
