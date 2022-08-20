@@ -35,7 +35,7 @@ public class ConsultaMundialesController implements Initializable {
     private Label lblAvisoConsulta;
     @FXML
     private HBox seccionDinamica;
-    private static ArrayList<Mundial> arrMundiales;
+    private static ArrayList<Mundial> arrMundiales=Mundial.cargarMundiales(Principal.pathFiles+"WorldCups.csv");
 
     /**
      * Initializes the controller class.
@@ -54,16 +54,20 @@ public class ConsultaMundialesController implements Initializable {
     }
 
     public void mostrarConsulta() {
-        arrMundiales = Mundial.cargarMundiales("");
         String año = txtConsulta.getText();
-        for (Mundial m : arrMundiales) {
-            if (Integer.valueOf(año) == m.getAño()) {
-                mostrarSeccionPremios(m);
-                mostrarSeccionDatosGenerales(m);
-            } else {
-                lblAvisoConsulta.setText("No se han encontrado registros");
+        Mundial m=null;
+        for (Mundial m2 : arrMundiales) {
+            if (Integer.valueOf(año) == m2.getAño()) {
+                m=m2;
             }
         }
+        if(m!=null){
+            mostrarSeccionPremios(m);
+                mostrarSeccionDatosGenerales(m);
+        }else{
+            lblAvisoConsulta.setText("No se han encontrado registros");
+        }
+        
     }
 
     public void mostrarSeccionPremios(Mundial m) {
