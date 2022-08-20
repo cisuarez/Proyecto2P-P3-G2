@@ -15,11 +15,13 @@ public class Jugador {
     private String nombre;
     private String imgPath;
     private int dorsal;
+    private String directorTecnico;
 
-    public Jugador(String nombre, String imgPath, int dorsal) {
+    public Jugador(String nombre, String imgPath, int dorsal,String directorTecnico) {
         this.nombre = nombre;
         this.imgPath = imgPath;
         this.dorsal = dorsal;
+        this.directorTecnico=directorTecnico;
     }
 
     public String getNombre() {
@@ -45,13 +47,22 @@ public class Jugador {
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
+
+    public String getDirectorTecnico() {
+        return directorTecnico;
+    }
+
+    public void setDirectorTecnico(String directorTecnico) {
+        this.directorTecnico = directorTecnico;
+    }
+    
     public static ArrayList<Jugador> cargarJugadores(String nombreArchivo){
         ArrayList<Jugador> arregloJugador=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for(String[] ele:listaArreglo){
-           
+           arregloJugador.add(new Jugador(ele[6].trim(),ele[6].trim()+"png",Integer.parseInt(ele[5].trim()),ele[3]));
         }
-        return null;
+        return arregloJugador;
     }
     
 }
