@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
+
+import Herramientas.ManejoArchivos;
+import Proyecto2P_P3_G2.Principal;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -10,22 +13,23 @@ import java.util.Objects;
  *
  * @author Michael
  */
-public class Equipo implements Comparable<Equipo>{
+public class Equipo implements Comparable<Equipo> {
+
     private String nombre;
-//    private ArrayList<Jugador> jugadores;
+    private ArrayList<Jugador> jugadores;
     private int mundialesGanados;
     private String abreviatura;
 
     public Equipo(String nombre, String abreviatura) {
         this.nombre = nombre;
         this.abreviatura = abreviatura;
+        cargarJugadores(Principal.pathFiles+"WorldCupPlayersBrasil2014.csv",abreviatura);
     }
-    
 
     public Equipo(String nombre) {
         this.nombre = nombre;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -34,13 +38,13 @@ public class Equipo implements Comparable<Equipo>{
         this.nombre = nombre;
     }
 
-//    public ArrayList<Jugador> getJugadores() {
-//        return jugadores;
-//    }
-//
-//    public void setJugadores(ArrayList<Jugador> jugadores) {
-//        this.jugadores = jugadores;
-//    }
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
 
     public int getMundialesGanados() {
         return mundialesGanados;
@@ -62,13 +66,13 @@ public class Equipo implements Comparable<Equipo>{
     public String toString() {
         return nombre;
     }
-    
+
     @Override
-    public boolean equals(Object o){
-        if(o!=null&&o.getClass()==Equipo.class){
-            Equipo e=(Equipo)o;
+    public boolean equals(Object o) {
+        if (o != null && o.getClass() == Equipo.class) {
+            Equipo e = (Equipo) o;
             return this.getNombre().equals(e.getNombre());
-        }else{ 
+        } else {
             return false;
         }
     }
@@ -84,10 +88,31 @@ public class Equipo implements Comparable<Equipo>{
 //    public int hashCode() {
 //        return Objects.hash(nombre);
 //    }
-    
     @Override
     public int compareTo(Equipo e) {
         return this.nombre.compareTo(e.nombre);
     }
-  
+
+    private void cargarJugadores(String nombreArchivo, String teamIniciales) {  
+        
+        ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(nombreArchivo, ",");
+        for (String[] ele : listaArreglo) {
+            if (this.abreviatura.equals(ele[2].trim())) {
+                setJugadores(new ArrayList<Jugador>());
+                jugadores.add(new Jugador(ele[6].trim(), ele[6] + ".png", Integer.parseInt(ele[5].trim()), ele[3]));
+            }
+        }
+        
+    }
+    public static ArrayList<Equipo> cargarEquipos(String nombreArchivo){
+        ArrayList<Equipo> arregloEquipo=new ArrayList();
+        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
+        for(String[] ele:listaArreglo){
+            //(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase)
+            Equipo equipo=new Equipo(ele[5].trim(),ele[19].trim());         
+            arregloEquipo.add(equipo);
+        }
+        return arregloEquipo;
+    }
+
 }
