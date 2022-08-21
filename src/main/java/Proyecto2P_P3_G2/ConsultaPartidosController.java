@@ -14,8 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -41,14 +47,89 @@ public class ConsultaPartidosController implements Initializable {
     private Label lbgrupo ;
     
     @FXML 
+    private VBox partidoescena;
+    
+    @FXML 
     private ComboBox<Equipo> cbequipo2;
+    
+    @FXML 
+    private Button btnconsultar;
     
     public static ArrayList<Partido> partidos=Partido.cargarPartidos("src/main/resources/Archivos_CSV/WorldCupMatchesBrasil2014.csv");
     
 
-    @FXML 
-     void consultar(){
-         
+     public void consultar(){
+         VBox grandote=new VBox();
+         HBox resultados = new HBox();
+         VBox conteSeparador= new VBox();
+         VBox detallesPartido=new VBox();
+         HBox detallesGeneral=new HBox();
+         VBox botones=new VBox();
+         HBox match=new HBox();
+         VBox arreglo=new VBox();
+         Label labelConsultas=new Label();
+         Label lbFecha=new Label();
+         Label lbFechayHora=new Label();
+         Label lbFase=new Label();
+         Label lbEstadio=new Label();
+         Label lbciudad=new Label();
+         Label lbmarcador=new Label();
+         Label lbLocal=new Label();
+         Label lbVisitante=new Label();
+         Label finalPartido=new Label("FINAL DEL PARTIDO");
+         ImageView igLocal= new ImageView();
+         ImageView igVisitante= new ImageView();
+         Separator sepPartidos=new Separator();
+         Button btnExportarResultados= new Button("EXPORTAR RESULTADOS DE GRUPO");
+         Button btnVerDetalles= new Button("VER DETALLE DE EQUIPOS");
+         Partido partido=null;
+         for(Partido parti:partidos){
+             if(cbequpo1.getValue().getNombre().equals(parti.getEquipoLocal().getNombre())&&cbequipo2.getValue().getNombre().equals(parti.getEquipoVisitante().getNombre())){
+               partido=parti;               
+             }
+         }
+         if(partido!=null){
+             labelConsultas.setText("");
+               labelConsultas.setText("Resultados del partido");
+               lbFecha.setText(partido.getFecha());
+               lbFechayHora.setText(partido.getFecha()+"-"+partido.getHora()+" Hora Local");
+               if(cbfase.getValue().equals("Grupos")){
+                   lbFase.setText("Grupo "+partido.getGrupo());
+               }else{
+                  lbFase.setText(partido.getFase());
+                  
+               }
+               lbciudad.setText(partido.getCiudad());
+               lbmarcador.setText(partido.getMarcador());
+               lbLocal.setText(cbequpo1.getValue().getNombre());
+               lbVisitante.setText(cbequipo2.getValue().getNombre());
+               lbEstadio.setText(partido.getEstadio());
+               
+               conteSeparador.getChildren().addAll(lbFecha,sepPartidos);
+               resultados.getChildren().addAll(labelConsultas);
+               resultados.setAlignment(Pos.CENTER);
+
+               match.getChildren().addAll(igLocal, lbLocal, lbmarcador, lbVisitante,igVisitante);
+               match.setAlignment(Pos.CENTER);
+               match.setSpacing(30);
+               detallesPartido.getChildren().addAll(lbFechayHora,lbFase,lbEstadio,lbciudad);
+               arreglo.getChildren().addAll(finalPartido,match);
+               arreglo.setFillWidth(true);
+               detallesGeneral.getChildren().addAll(detallesPartido,arreglo);
+               detallesGeneral.setSpacing(120);
+               botones.getChildren().addAll(btnExportarResultados,btnVerDetalles);
+               botones.setSpacing(10);
+               arreglo.setAlignment(Pos.CENTER);
+    
+               grandote.getChildren().addAll(resultados,conteSeparador,detallesGeneral,botones);
+               
+               partidoescena.getChildren().addAll(grandote);
+
+         } else{
+                 labelConsultas.setText("No se han encontrado partidos coincidentes con los equipos seleccionados.");
+                 partidoescena.getChildren().add(labelConsultas);
+                 
+             }
          
     
 
@@ -93,6 +174,8 @@ public class ConsultaPartidosController implements Initializable {
             public void handle(ActionEvent e) {
                 switch (cbfase.getValue()) {
                     case "Grupos":
+                        cbequpo1.getItems().clear();
+                        cbequipo2.getItems().clear();
                         cbgrupo.setVisible(true);
                         lbgrupo.setVisible(true);
                         cbgrupo.getItems().clear();
@@ -183,6 +266,15 @@ public class ConsultaPartidosController implements Initializable {
                         break;
                 }
                 
+            }
+        });
+        
+        btnconsultar.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                partidoescena.getChildren().clear();
+                consultar();
             }
         });
     }    
