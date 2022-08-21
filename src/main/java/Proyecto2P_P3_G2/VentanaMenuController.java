@@ -30,19 +30,14 @@ public class VentanaMenuController implements Initializable {
     }    
     @FXML
     private void cambiarConsultaPartidos(ActionEvent event) throws IOException {
-        Scene scene = new Scene(Principal.loadFXML("ConsultaPartidos"), 640, 480);
-        Stage stage=new Stage();
-        stage.setScene(scene);
-        stage.show();
+        Principal.cargarVentana("ConsultaPartidos",640,480);
         
         
     }
     @FXML
     private void cambiarConsultaCopasMundiales(ActionEvent event) throws IOException {
-        Scene scene = new Scene(Principal.loadFXML("ConsultaMundiales"), 640, 480);
-        Stage stage=new Stage();
-        stage.setScene(scene);
-        stage.show();
+
+        Principal.cargarVentana("ConsultaMundiales",640,480);
         
         
     }
