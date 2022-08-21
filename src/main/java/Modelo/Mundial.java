@@ -3,19 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
+
 import java.util.ArrayList;
 import Herramientas.ManejoArchivos;
+
 /**
  *
  * @author CJAA
  */
 public class Mundial {
+
     private int año;
     private int golesAnotados;
     private int cantidadEquipos;
     private String cantidadAsistencia;
     private int partidosJugados;
     private ArrayList<Equipo> finalistas;
+
     public Mundial(int año, int golesAnotados, int cantidadEquipos, String cantidadAsistencia, int partidosJugados, ArrayList<Equipo> finalistas) {
         this.año = año;
         this.golesAnotados = golesAnotados;
@@ -25,28 +29,26 @@ public class Mundial {
         this.finalistas = finalistas;
     }
 
-   
-    
-    public static ArrayList<Mundial> cargarMundiales(String nombreArchivo){
-        ArrayList<Mundial> arregloMundial=new ArrayList();
-        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
-        for(String[] ele:listaArreglo){
+    public static ArrayList<Mundial> cargarMundiales(String nombreArchivo) {
+        ArrayList<Mundial> arregloMundial = new ArrayList();
+        ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(nombreArchivo, ",");
+        for (String[] ele : listaArreglo) {
             //Year,Country,Winner,Runners-Up,Third,Fourth,GoalsScored,QualifiedTeams,MatchesPlayed,Attendance
-            ArrayList<Equipo> finalistas=new ArrayList<>();
-            Equipo ganador=new Equipo(ele[2].trim());
-            for(String[]dato:listaArreglo){
-                if(dato[2].trim().equals(ganador.getNombre())){
-                    ganador.setMundialesGanados(ganador.getMundialesGanados()+1);
+            ArrayList<Equipo> finalistas = new ArrayList<>();
+            for (int i = 2; i < 6; i++) {
+                Equipo equipo = new Equipo(ele[i].trim());
+                for (String[] dato : listaArreglo) {
+                    if (dato[2].trim().equals(equipo.getNombre())) {
+                        equipo.setMundialesGanados(equipo.getMundialesGanados() + 1);
+                    }
                 }
+                finalistas.add(equipo);
             }
-            finalistas.add(ganador);
-            finalistas.add(new Equipo(ele[3].trim()));
-            finalistas.add(new Equipo(ele[4].trim()));
-            finalistas.add(new Equipo(ele[5].trim()));
-            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()),Integer.valueOf(ele[6].trim()),Integer.valueOf(ele[7].trim()),ele[9].trim(),Integer.valueOf(ele[8].trim()),finalistas));
+            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()), Integer.valueOf(ele[6].trim()), Integer.valueOf(ele[7].trim()), ele[9].trim(), Integer.valueOf(ele[8].trim()), finalistas));
         }
         return arregloMundial;
     }
+
     public int getAño() {
         return año;
     }
@@ -94,5 +96,5 @@ public class Mundial {
     public void setFinalistas(ArrayList<Equipo> finalistas) {
         this.finalistas = finalistas;
     }
-    
+
 }
