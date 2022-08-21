@@ -56,7 +56,15 @@ public class ConsultaMundialesController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 seccionDinamica.getChildren().clear();
-                mostrarConsulta();
+                try{
+                    mostrarConsulta();
+                }catch(NumberFormatException ne){
+                    lblAvisoConsulta.setText("Ingrese un valor válido");
+                }catch(NullPointerException n){
+                    n.printStackTrace();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
     }
