@@ -16,6 +16,7 @@ public class Jugador {
     private String imgPath;
     private int dorsal;
     private String directorTecnico;
+    
 
     public Jugador(String nombre, String imgPath, int dorsal,String directorTecnico) {
         this.nombre = nombre;
@@ -56,13 +57,6 @@ public class Jugador {
         this.directorTecnico = directorTecnico;
     }
     
-    public static ArrayList<Jugador> cargarJugadores(String nombreArchivo){
-        ArrayList<Jugador> arregloJugador=new ArrayList();
-        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, ",");
-        for(String[] ele:listaArreglo){
-           arregloJugador.add(new Jugador(ele[6].trim(),ele[6]+"png",Integer.parseInt(ele[5].trim()),ele[3]));
-        }
-        return arregloJugador;
-    }
+    
     
 }
