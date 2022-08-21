@@ -20,6 +20,7 @@ public class Principal extends Application{
     
     private static Scene scene;
     public static String pathFiles="src/main/resources/Archivos_CSV/";
+    public static String pathImg="src/main/resources/Jugadores/";
 
     @Override
     public void start(Stage stage) throws IOException {
