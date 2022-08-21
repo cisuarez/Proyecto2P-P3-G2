@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -83,12 +84,17 @@ public class ConsultaMundialesController implements Initializable {
         lblAvisoConsulta.setText("");
         VBox seccionPremios=new VBox();
         Label lblPremios=new Label("Premios");
+        lblPremios.setStyle("-fx-font-size: 16");
         Separator sepPremios=new Separator();
         lblPremios.setStyle("-fx-font-size: 16");
         HBox hbPremios=new HBox();
+        hbPremios.setSpacing(16);
         VBox vbPosiciones=new VBox();
+        vbPosiciones.setSpacing(16);
         VBox vbPaises=new VBox();
+        vbPaises.setSpacing(16);
         VBox vbCopas=new VBox();
+        vbCopas.setSpacing(10);
         crearSeccion(m,vbPosiciones,vbPaises,vbCopas);
         hbPremios.getChildren().addAll(vbPosiciones,vbPaises,vbCopas);
         seccionPremios.getChildren().addAll(lblPremios,sepPremios,hbPremios);
@@ -104,21 +110,27 @@ public class ConsultaMundialesController implements Initializable {
         Label lblPartidosJugados=new Label("Partidos jugados: "+m.getPartidosJugados());
         Label lblAsistencia=new Label("Asistencia: "+m.getCantidadAsistencia());
         seccionDatosGenerales.getChildren().addAll(lblDatosGenerales,sepDatos,lblGoles,lblEquipos,lblPartidosJugados,lblAsistencia);
-        seccionDatosGenerales.setSpacing(10);
+        seccionDatosGenerales.setSpacing(14);
         seccionDinamica.getChildren().add(seccionDatosGenerales);
     }
     public void crearSeccion(Mundial m,VBox posiciones,VBox paises,VBox copas){
         for(int i=0;i<4;i++){
             String[] lugares={"Ganador","Segundo","Tercero","Cuarto"};
             Label lblPosicion=new Label(lugares[i]);
+            lblPosicion.setStyle("-fx-font-size: 14");
+            lblPosicion.setAlignment(Pos.BOTTOM_LEFT);
             Label lblEquipo=new Label(m.getFinalistas().get(i).getNombre());
+            lblEquipo.setStyle("-fx-font-size: 14");
+            lblEquipo.setAlignment(Pos.BOTTOM_LEFT);
             HBox pais=new HBox();
             pais.getChildren().add(lblEquipo);
             HBox paisCopas=new HBox();
+            paisCopas.setMinHeight(25);
+            paisCopas.setSpacing(5);
             Image imgCopa=ManejoArchivos.abrirImagen("src/main/resources/Images/copa.png");
             for(int a=0;a<m.getFinalistas().get(i).getMundialesGanados();a++){
                 ImageView imgv=new ImageView(imgCopa);
-                imgv.setFitHeight(15);
+                imgv.setFitHeight(25);
                 imgv.setPreserveRatio(true);
                 paisCopas.getChildren().add(imgv);
             }
