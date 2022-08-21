@@ -29,13 +29,29 @@ public class Principal extends Application{
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    static void setRoot(String fxml)  {
+        try {
+            scene.setRoot(loadFXML(fxml));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+    public static void cargarVentana(String ventana,int height,int width){
+        Scene scene=null;
+        try {
+            scene = new Scene(Principal.loadFXML(ventana), height, width);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Stage stage=new Stage();
+        stage.setScene(scene);
+        stage.show();
+        
     }
     public static void main(String[] args) {
         launch();
