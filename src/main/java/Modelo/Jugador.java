@@ -5,7 +5,13 @@
 package Modelo;
 
 import Herramientas.ManejoArchivos;
+import Proyecto2P_P3_G2.Principal;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -16,13 +22,16 @@ public class Jugador {
     private String imgPath;
     private int dorsal;
     private String directorTecnico;
+    public static ArrayList<Jugador> jugadoresCargados=cargarJugadores();
+    private String abrEquipo;
     
 
-    public Jugador(String nombre, String imgPath, int dorsal,String directorTecnico) {
+    public Jugador(String nombre, String imgPath, int dorsal,String directorTecnico, String abrEquipo) {
         this.nombre = nombre;
         this.imgPath = imgPath;
         this.dorsal = dorsal;
         this.directorTecnico=directorTecnico;
+        this.abrEquipo=abrEquipo;
     }
 
     public String getNombre() {
@@ -55,6 +64,48 @@ public class Jugador {
 
     public void setDirectorTecnico(String directorTecnico) {
         this.directorTecnico = directorTecnico;
+    }
+
+    public String getAbrEquipo() {
+        return abrEquipo;
+    }
+
+    public void setAbrEquipo(String abrEquipo) {
+        this.abrEquipo = abrEquipo;
+    }
+    
+    private static ArrayList<Jugador> cargarJugadores(){
+        ArrayList<Jugador> jugadores=new ArrayList<>();
+        try(BufferedReader bf=new BufferedReader(new FileReader(Principal.pathFiles+"WorldCupPlayersBrasil2014.csv"))){
+            bf.readLine();
+            for(int i=0;i<2009;i++){
+                String[] datos=bf.readLine().split(",");
+                System.out.println(Arrays.toString(datos));
+                if(!jugadores.isEmpty()){
+                    Jugador j2=null;
+                    for(Jugador j:jugadores){
+                        if(datos[6].trim().equals(j.getNombre())==true&&datos[2].trim().equals(j.getAbrEquipo())){
+                            j2=j;
+                        }
+                    }
+                    if(j2==null){
+                        jugadores.add(new Jugador(datos[6].trim(),datos[6].trim()+".png",Integer.valueOf(datos[5].trim()),datos[3].split("\\(")[0].trim(),datos[2].trim()));
+                    }
+                }else{
+                    jugadores.add(new Jugador(datos[6].trim(),datos[6].trim()+".jpg",Integer.valueOf(datos[5].trim()),datos[3].split("\\(")[0].trim(),datos[2].trim()));
+                }
+            }
+        }catch(FileNotFoundException f){
+            
+        }catch(IOException io){
+            
+        }
+        return jugadores;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
     
     
