@@ -23,7 +23,7 @@ public class Equipo implements Comparable<Equipo> {
     public Equipo(String nombre, String abreviatura) {
         this.nombre = nombre;
         this.abreviatura = abreviatura;
-        cargarJugadores(Principal.pathFiles+"WorldCupPlayersBrasil2014.csv",abreviatura);
+        cargarJugadores(abreviatura);
     }
 
     public Equipo(String nombre) {
@@ -93,16 +93,22 @@ public class Equipo implements Comparable<Equipo> {
         return this.nombre.compareTo(e.nombre);
     }
 
-    private void cargarJugadores(String nombreArchivo, String teamIniciales) {  
-        
-        ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(nombreArchivo, ",");
-        for (String[] ele : listaArreglo) {
-            if (this.abreviatura.equals(ele[2].trim())) {
-                setJugadores(new ArrayList<Jugador>());
-                jugadores.add(new Jugador(ele[6].trim(), ele[6] + ".png", Integer.parseInt(ele[5].trim()), ele[3]));
+    private void cargarJugadores(String teamIniciales) {
+        ArrayList<Jugador> jugadoresE=new ArrayList<>();
+        for(Jugador j:Jugador.jugadoresCargados){
+            if(teamIniciales.equals(j.getAbrEquipo())==true){
+                jugadoresE.add(j);
             }
         }
-        
+        this.jugadores=jugadoresE;
+//        ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(nombreArchivo, ",");
+//        for (String[] ele : listaArreglo) {
+//            if (this.abreviatura.equals(ele[2].trim())) {
+//                setJugadores(new ArrayList<Jugador>());
+//                jugadores.add(new Jugador(ele[6].trim(), ele[6] + ".png", Integer.parseInt(ele[5].trim()), ele[3]));
+//            }
+//        }
+    
     }
     public static ArrayList<Equipo> cargarEquipos(String nombreArchivo){
         ArrayList<Equipo> arregloEquipo=new ArrayList();
