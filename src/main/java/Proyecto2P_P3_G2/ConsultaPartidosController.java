@@ -89,6 +89,9 @@ public class ConsultaPartidosController implements Initializable {
         Separator sepPartidos = new Separator();
         Button btnExportarResultados = new Button("EXPORTAR RESULTADOS DE GRUPO");
         Button btnVerDetalles = new Button("VER DETALLE DE EQUIPOS");
+        btnExportarResultados.setOnAction(e->{
+            Principal.cargarVentana("ExportarResultados",100,100);
+        });
         btnVerDetalles.setOnAction(e -> {
             String nombreEquipo1=cbequpo1.getValue().getNombre();
             int cantidadJugadoresEquipo1=cbequpo1.getValue().getJugadores().size();
