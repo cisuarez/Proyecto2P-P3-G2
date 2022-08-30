@@ -64,6 +64,7 @@ public class ConsultaPartidosController implements Initializable {
 
     public static ArrayList<Partido> partidos = Partido.cargarPartidos(Principal.pathFiles+"WorldCupMatchesBrasil2014.csv");
     public static ArrayList<Equipo> equiposSerializar= new ArrayList<>();
+    public static String faseSerializada;
 
     public void consultar() {
         VBox grandote = new VBox();
@@ -91,6 +92,12 @@ public class ConsultaPartidosController implements Initializable {
         Button btnVerDetalles = new Button("VER DETALLE DE EQUIPOS");
         btnExportarResultados.setOnAction(e->{
             Principal.cargarVentana("ExportarResultados",440,200);
+            String a=cbfase.getValue();
+            if(a=="Grupos"){
+                faseSerializada="Grupo"+cbgrupo.getValue();
+            }else{
+                faseSerializada=a;
+            }
         });
         btnVerDetalles.setOnAction(e -> {
             String nombreEquipo1=cbequpo1.getValue().getNombre();
