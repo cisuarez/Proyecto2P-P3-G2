@@ -6,6 +6,7 @@ package Modelo;
 
 import java.util.ArrayList;
 import Herramientas.ManejoArchivos;
+import Proyecto2P_P3_G2.Principal;
 
 /**
  *
@@ -30,13 +31,18 @@ public class Mundial {
     }
 
     public static ArrayList<Mundial> cargarMundiales(String nombreArchivo) {
+        ArrayList<String[]> abreviaturasEquipos=ManejoArchivos.generarArreglo(Principal.pathFiles+"Abreviaturas.csv",",");
         ArrayList<Mundial> arregloMundial = new ArrayList();
         ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(nombreArchivo, ",");
         for (String[] ele : listaArreglo) {
-            //Year,Country,Winner,Runners-Up,Third,Fourth,GoalsScored,QualifiedTeams,MatchesPlayed,Attendance
             ArrayList<Equipo> finalistas = new ArrayList<>();
             for (int i = 2; i < 6; i++) {
                 Equipo equipo = new Equipo(ele[i].trim());
+                for(String[] datos:abreviaturasEquipos){
+                    if(equipo.getNombre().equals(datos[0])){
+                        equipo.setAbreviatura(datos[1]);
+                    }
+                }
                 for (String[] dato : listaArreglo) {
                     if (dato[2].trim().equals(equipo.getNombre())) {
                         equipo.setMundialesGanados(equipo.getMundialesGanados() + 1);
