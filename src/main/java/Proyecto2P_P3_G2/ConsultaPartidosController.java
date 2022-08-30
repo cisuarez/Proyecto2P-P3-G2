@@ -208,9 +208,6 @@ public class ConsultaPartidosController implements Initializable {
         cbfase.getItems().addAll("Grupos", "Ronda de 16", "Cuartos de Final", "Semifinal", "Final");
         cbgrupo.setVisible(false);
         lbgrupo.setVisible(false);
-        String fase = cbfase.getValue();
-
-        ArrayList<Partido> partidos = Partido.cargarPartidos("src/main/resources/Archivos_CSV/WorldCupMatchesBrasil2014.csv");
         cbfase.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
             @Override
@@ -234,42 +231,20 @@ public class ConsultaPartidosController implements Initializable {
 
                         break;
                     case "Ronda de 16":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equipos16 = ConsultaPartidosController.llenarFase("Round of 16");
-//                        equiposSerializar.clear();
-//                        equiposSerializar.addAll(equipos16);
-                        cbequpo1.getItems().setAll(equipos16);
-                        cbequipo2.getItems().setAll(equipos16);
+                        cargarEquipoFase("Round of 16");
 
                         break;
                     case "Cuartos de Final":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposX = ConsultaPartidosController.llenarFase("Quarter-finals");
-//                        equiposSerializar.clear();
-//                        equiposSerializar.addAll(equiposX);
-                        cbequpo1.getItems().setAll(equiposX);
-                        cbequipo2.getItems().setAll(equiposX);
+                       cargarEquipoFase("Quarter-finals");
 
                         break;
                     case "Semifinal":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposZ = ConsultaPartidosController.llenarFase("Semi-finals");
-//                        equiposSerializar.clear();
-//                        equiposSerializar.addAll(equiposZ);
-                        cbequpo1.getItems().setAll(equiposZ);
-                        cbequipo2.getItems().setAll(equiposZ);
+                       cargarEquipoFase("Semi-finals");
+
                         break;
                     case "Final":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposC = ConsultaPartidosController.llenarFase("Final");
-//                        equiposSerializar.clear();
-//                        equiposSerializar.addAll(equiposC);
-                        cbequpo1.getItems().setAll(equiposC);
-                        cbequipo2.getItems().setAll(equiposC);
+                        cargarEquipoFase("Final");
+//                      
                         break;
                     default:
                         break;
@@ -321,5 +296,11 @@ public class ConsultaPartidosController implements Initializable {
         cbequpo1.getItems().setAll(equipos);
         cbequipo2.getItems().setAll(equipos);
     }
-
+    public void cargarEquipoFase(String fase) {
+        cbgrupo.setVisible(false);
+        lbgrupo.setVisible(false);
+        ArrayList<Equipo> equipos16 = ConsultaPartidosController.llenarFase(fase);
+        cbequpo1.getItems().setAll(equipos16);
+        cbequipo2.getItems().setAll(equipos16);
+    }
 }
