@@ -90,7 +90,7 @@ public class ConsultaPartidosController implements Initializable {
         Button btnExportarResultados = new Button("EXPORTAR RESULTADOS DE GRUPO");
         Button btnVerDetalles = new Button("VER DETALLE DE EQUIPOS");
         btnExportarResultados.setOnAction(e->{
-            Principal.cargarVentana("ExportarResultados",100,100);
+            Principal.cargarVentana("ExportarResultados",440,200);
         });
         btnVerDetalles.setOnAction(e -> {
             String nombreEquipo1=cbequpo1.getValue().getNombre();
@@ -104,8 +104,8 @@ public class ConsultaPartidosController implements Initializable {
             VBox root = new VBox();
             Scene scene = new Scene(root,640,480);                                
             Stage ventanaDetalleEquipos = new Stage();
-            stage.setScene(scene);
-            stage.show();
+            ventanaDetalleEquipos.setScene(scene);
+            ventanaDetalleEquipos.show();
             
             Label titulo = new Label();
             titulo.setTextAlignment(TextAlignment.CENTER);
@@ -315,8 +315,7 @@ public class ConsultaPartidosController implements Initializable {
     }
     private VBox crearContenedorJugador(int numeroDeJugadores, String nombreEquipo) {
         VBox contenedorEquipo = new VBox();
-        Label equipo = new Label();
-        equipo.setText(nombreEquipo);
+        Label equipo = new Label(nombreEquipo);     
         ScrollPane scrollPane = new ScrollPane();
         HBox prueba=new HBox();
         prueba.setSpacing(20);
@@ -324,12 +323,9 @@ public class ConsultaPartidosController implements Initializable {
         scrollPane.setContent(prueba);
         for (int i = 0; i < numeroDeJugadores; i++) {
             VBox vbox = new VBox();
-            vbox.setAlignment(Pos.CENTER);
-            
-            Label nombre = new Label();
-            nombre.setText("Nombre");
-            Label jugador = new Label();
-            jugador.setText("Jugador");
+            vbox.setAlignment(Pos.CENTER);        
+            Label nombre = new Label("Nombre");          
+            Label jugador = new Label("Jugador");      
             ImageView imgv = new ImageView();
             try ( FileInputStream input = new FileInputStream(Principal.pathImg + "DEFAULT.png")) {
                 Image image = new Image(input, 90, 90, true, false);
