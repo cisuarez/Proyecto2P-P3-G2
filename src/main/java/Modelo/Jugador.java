@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,12 +18,12 @@ import java.util.Arrays;
  *
  * @author Michael
  */
-public class Jugador {
+public class Jugador implements Serializable {
     private String nombre;
     private String imgPath;
     private int dorsal;
     private String directorTecnico;
-    public static ArrayList<Jugador> jugadoresCargados=cargarJugadores();
+    
     private String abrEquipo;
     
 
@@ -74,7 +75,7 @@ public class Jugador {
         this.abrEquipo = abrEquipo;
     }
     
-    private static ArrayList<Jugador> cargarJugadores(){
+    public static ArrayList<Jugador> cargarJugadores(){
         ArrayList<Jugador> jugadores=new ArrayList<>();
         try(BufferedReader bf=new BufferedReader(new FileReader(Principal.pathFiles+"WorldCupPlayersBrasil2014.csv"))){
             bf.readLine();
