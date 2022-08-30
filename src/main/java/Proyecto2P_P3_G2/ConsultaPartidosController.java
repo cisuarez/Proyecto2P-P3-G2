@@ -4,19 +4,26 @@
  */
 package Proyecto2P_P3_G2;
 
+import Herramientas.ManejoArchivos;
 import Modelo.Equipo;
 import Modelo.Jugador;
 import Modelo.Partido;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +33,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
@@ -76,24 +84,36 @@ public class ConsultaPartidosController implements Initializable {
         HBox match = new HBox();
         VBox arreglo = new VBox();
         Label labelConsultas = new Label();
+        labelConsultas.setStyle("-fx-font-weight:bold");
         Label lbFecha = new Label();
+        lbFecha.setStyle("-fx-font-size: 15");
         Label lbFechayHora = new Label();
         Label lbFase = new Label();
+        lbFase.setStyle("-fx-font-weight:bold");
         Label lbEstadio = new Label();
         Label lbciudad = new Label();
         Label lbmarcador = new Label();
+        lbmarcador.setStyle("-fx-font-size: 20");
         Label lbLocal = new Label();
+        lbLocal.setStyle("-fx-font-size: 20");
         Label lbVisitante = new Label();
+        lbVisitante.setStyle("-fx-font-size: 20");
         Label finalPartido = new Label("FINAL DEL PARTIDO");
         ImageView igLocal = new ImageView();
         ImageView igVisitante = new ImageView();
         Separator sepPartidos = new Separator();
         Button btnExportarResultados = new Button("EXPORTAR RESULTADOS DE GRUPO");
+        btnExportarResultados.setAlignment(Pos.CENTER);
+        btnExportarResultados.setStyle("-fx-background-color:#20def7;-fx-text-fill:white");
         Button btnVerDetalles = new Button("VER DETALLE DE EQUIPOS");
+        btnVerDetalles.setStyle("-fx-background-color:#20def7;-fx-text-fill:white");
+        btnVerDetalles.setAlignment(Pos.CENTER);
         btnExportarResultados.setOnAction(e->{
             Principal.cargarVentana("ExportarResultados",440,200);
             String a=cbfase.getValue();
-            if(a=="Grupos"){
+            equiposSerializar.clear();
+            equiposSerializar.addAll(cbequpo1.getItems());
+            if(a.equals("Grupos")){
                 faseSerializada="Grupo"+cbgrupo.getValue();
             }else{
                 faseSerializada=a;
@@ -131,7 +151,7 @@ public class ConsultaPartidosController implements Initializable {
         if (partido != null) {
             labelConsultas.setText("");
             labelConsultas.setText("Resultados del partido");
-            lbFecha.setText(partido.getFecha());
+            lbFecha.setText(fechaEspañol(partido.getFecha()));
             lbFechayHora.setText(partido.getFecha() + "-" + partido.getHora() + " Hora Local");
             if (cbfase.getValue().equals("Grupos")) {
                 lbFase.setText("Grupo " + partido.getGrupo());
@@ -144,6 +164,14 @@ public class ConsultaPartidosController implements Initializable {
             lbLocal.setText(cbequpo1.getValue().getNombre());
             lbVisitante.setText(cbequipo2.getValue().getNombre());
             lbEstadio.setText(partido.getEstadio());
+            Image igVisi =ManejoArchivos.abrirImagen(Principal.pathImgBanderas+cbequipo2.getValue().getAbreviatura()+".jpg");
+            igVisitante.setImage(igVisi);
+            igVisitante.setFitHeight(30);
+            igVisitante.setPreserveRatio(true);
+            Image igLoc =ManejoArchivos.abrirImagen(Principal.pathImgBanderas+cbequpo1.getValue().getAbreviatura()+".jpg");
+            igLocal.setImage(igLoc);
+            igLocal.setFitHeight(30);
+            igLocal.setPreserveRatio(true);
 
             conteSeparador.getChildren().addAll(lbFecha, sepPartidos);
             resultados.getChildren().addAll(labelConsultas);
@@ -151,17 +179,23 @@ public class ConsultaPartidosController implements Initializable {
 
             match.getChildren().addAll(igLocal, lbLocal, lbmarcador, lbVisitante, igVisitante);
             match.setAlignment(Pos.CENTER);
-            match.setSpacing(30);
+            match.setSpacing(50);
             detallesPartido.getChildren().addAll(lbFechayHora, lbFase, lbEstadio, lbciudad);
+            detallesPartido.setSpacing(5);
+            
+            
+            
             arreglo.getChildren().addAll(finalPartido, match);
             arreglo.setFillWidth(true);
             detallesGeneral.getChildren().addAll(detallesPartido, arreglo);
-            detallesGeneral.setSpacing(120);
+            detallesGeneral.setSpacing(50);
             botones.getChildren().addAll(btnExportarResultados, btnVerDetalles);
+            botones.setAlignment(Pos.CENTER);
             botones.setSpacing(10);
             arreglo.setAlignment(Pos.CENTER);
 
             grandote.getChildren().addAll(resultados, conteSeparador, detallesGeneral, botones);
+            grandote.setPadding(new Insets(10));
 
             partidoescena.getChildren().addAll(grandote);
 
@@ -206,9 +240,6 @@ public class ConsultaPartidosController implements Initializable {
         cbfase.getItems().addAll("Grupos", "Ronda de 16", "Cuartos de Final", "Semifinal", "Final");
         cbgrupo.setVisible(false);
         lbgrupo.setVisible(false);
-        String fase = cbfase.getValue();
-
-        ArrayList<Partido> partidos = Partido.cargarPartidos("src/main/resources/Archivos_CSV/WorldCupMatchesBrasil2014.csv");
         cbfase.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
             @Override
@@ -224,108 +255,29 @@ public class ConsultaPartidosController implements Initializable {
                         cbgrupo.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
-                                switch (cbgrupo.getValue()) {
-                                    case "A":
-                                        ArrayList<Equipo> equiposA = ConsultaPartidosController.llenarGrupo('A');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposA);
-                                        cbequpo1.getItems().setAll(equiposA);
-                                        cbequipo2.getItems().setAll(equiposA);
-                                        break;
-                                    case "B":
-                                        ArrayList<Equipo> equiposB = ConsultaPartidosController.llenarGrupo('B');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposB);
-                                        cbequpo1.getItems().setAll(equiposB);
-                                        cbequipo2.getItems().setAll(equiposB);
-                                        break;
-                                    case "C":
-                                        ArrayList<Equipo> equiposC = ConsultaPartidosController.llenarGrupo('C');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposC);
-                                        cbequpo1.getItems().setAll(equiposC);
-                                        cbequipo2.getItems().setAll(equiposC);
-                                        break;
-                                    case "D":
-                                        ArrayList<Equipo> equiposD = ConsultaPartidosController.llenarGrupo('D');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposD);
-                                        cbequpo1.getItems().setAll(equiposD);
-                                        cbequipo2.getItems().setAll(equiposD);
-                                        break;
-                                    case "E":
-                                        ArrayList<Equipo> equiposE = ConsultaPartidosController.llenarGrupo('E');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposE);
-                                        cbequpo1.getItems().setAll(equiposE);
-                                        cbequipo2.getItems().setAll(equiposE);
-                                        break;
-                                    case "F":
-                                        ArrayList<Equipo> equiposF = ConsultaPartidosController.llenarGrupo('F');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposF);
-                                        cbequpo1.getItems().setAll(equiposF);
-                                        cbequipo2.getItems().setAll(equiposF);
-                                        break;
-                                    case "G":
-                                        ArrayList<Equipo> equiposG = ConsultaPartidosController.llenarGrupo('G');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposG);
-                                        cbequpo1.getItems().setAll(equiposG);
-                                        cbequipo2.getItems().setAll(equiposG);
-                                        break;
-                                    case "H":
-                                        ArrayList<Equipo> equiposH = ConsultaPartidosController.llenarGrupo('H');
-                                        equiposSerializar.clear();
-                                        equiposSerializar.addAll(equiposH);
-                                        cbequpo1.getItems().setAll(equiposH);
-                                        cbequipo2.getItems().setAll(equiposH);
-                                        break;
-
-                                    default:
-                                        break;
+                                if(!cbgrupo.getValue().equals("")){
+                                    cargarEquiposEnComboBox(cbgrupo.getValue().charAt(0));
                                 }
                             }
                         });
 
                         break;
                     case "Ronda de 16":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equipos16 = ConsultaPartidosController.llenarFase("Round of 16");
-                        equiposSerializar.clear();
-                        equiposSerializar.addAll(equipos16);
-                        cbequpo1.getItems().setAll(equipos16);
-                        cbequipo2.getItems().setAll(equipos16);
+                        
+                        cargarEquipoFase("Round of 16");
 
                         break;
                     case "Cuartos de Final":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposX = ConsultaPartidosController.llenarFase("Quarter-finals");
-                        equiposSerializar.clear();
-                        equiposSerializar.addAll(equiposX);
-                        cbequpo1.getItems().setAll(equiposX);
-                        cbequipo2.getItems().setAll(equiposX);
+                       cargarEquipoFase("Quarter-finals");
 
                         break;
                     case "Semifinal":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposZ = ConsultaPartidosController.llenarFase("Semi-finals");
-                        equiposSerializar.clear();
-                        equiposSerializar.addAll(equiposZ);
-                        cbequpo1.getItems().setAll(equiposZ);
-                        cbequipo2.getItems().setAll(equiposZ);
+                       cargarEquipoFase("Semi-finals");
+
                         break;
                     case "Final":
-                        cbgrupo.setVisible(false);
-                        lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposC = ConsultaPartidosController.llenarFase("Final");
-                        equiposSerializar.clear();
-                        equiposSerializar.addAll(equiposC);
-                        cbequpo1.getItems().setAll(equiposC);
-                        cbequipo2.getItems().setAll(equiposC);
+                        cargarEquipoFase("Final");
+//                      
                         break;
                     default:
                         break;
@@ -372,6 +324,42 @@ public class ConsultaPartidosController implements Initializable {
         return contenedorEquipo;
 
     }
-    
+    public void cargarEquiposEnComboBox(char character){
+        ArrayList<Equipo> equipos = ConsultaPartidosController.llenarGrupo(character);
+        cbequpo1.getItems().setAll(equipos);
+        cbequipo2.getItems().setAll(equipos);
+    }
+    public void cargarEquipoFase(String fase) {
+        cbgrupo.setVisible(false);
+        lbgrupo.setVisible(false);
+        ArrayList<Equipo> equipos16 = ConsultaPartidosController.llenarFase(fase);
+        cbequpo1.getItems().setAll(equipos16);
+        cbequipo2.getItems().setAll(equipos16);
+    }
 
+       
+    public static String fechaEspañol(String fecha){
+        String[] arreglo= fecha.split(" ");
+        int mes1;
+        String fecha1="";
+        if(arreglo[1].equals("Jun")){
+            mes1=06; 
+        }else{
+            mes1=07;
+        }
+        try {
+                String inputDateStr = String.format("%s/%s/%s", Integer.valueOf(arreglo[0]),mes1, Integer.valueOf(arreglo[2]));
+                Date inputDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDateStr);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(inputDate);
+                String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.forLanguageTag("es")).toLowerCase();
+                String mes = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.forLanguageTag("es")).toLowerCase();
+                fecha1=dayOfWeek+" "+arreglo[0]+" "+mes;
+                return fecha1;
+                
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        return fecha1;
+    }
 }
