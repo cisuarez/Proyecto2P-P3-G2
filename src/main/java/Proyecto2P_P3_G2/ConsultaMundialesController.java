@@ -49,20 +49,16 @@ public class ConsultaMundialesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        btnConsultar.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                seccionDinamica.getChildren().clear();
-                try{
-                    mostrarConsulta();
-                }catch(NumberFormatException ne){
-                    lblAvisoConsulta.setText("Ingrese un valor válido");
-                }catch(NullPointerException n){
-                    n.printStackTrace();
-                }catch(Exception ex){
-                    ex.printStackTrace();
-                }
+        btnConsultar.addEventHandler(ActionEvent.ACTION, e -> {
+            seccionDinamica.getChildren().clear();
+            try{
+                mostrarConsulta();
+            }catch(NumberFormatException ne){
+                lblAvisoConsulta.setText("Ingrese un valor válido");
+            }catch(NullPointerException n){
+                n.printStackTrace();
+            }catch(Exception ex){
+                ex.printStackTrace();
             }
         });
     }
@@ -166,7 +162,7 @@ public class ConsultaMundialesController implements Initializable {
             lblEquipo.setStyle("-fx-font-size: 14");
             lblEquipo.setAlignment(Pos.BOTTOM_LEFT);
             HBox pais=new HBox();
-            Image bandera=ManejoArchivos.abrirImagen("src/main/resources/Images/Banderas/"+m.getFinalistas().get(i).getAbreviatura()+".jpg");
+            Image bandera=ManejoArchivos.abrirImagen(Principal.pathImgBanderas+m.getFinalistas().get(i).getAbreviatura()+".jpg");
             ImageView imgvEquipo=new ImageView(bandera);
             imgvEquipo.setFitHeight(15);
             imgvEquipo.setPreserveRatio(true);
@@ -176,7 +172,7 @@ public class ConsultaMundialesController implements Initializable {
             HBox paisCopas=new HBox();
             paisCopas.setMinHeight(25);
             paisCopas.setSpacing(5);
-            Image imgCopa=ManejoArchivos.abrirImagen("src/main/resources/Images/copa.png");
+            Image imgCopa=ManejoArchivos.abrirImagen(Principal.pathImgGeneral+"copa.png");
             for(int a=0;a<m.getFinalistas().get(i).getMundialesGanados();a++){
                 ImageView imgv=new ImageView(imgCopa);
                 imgv.setFitHeight(25);

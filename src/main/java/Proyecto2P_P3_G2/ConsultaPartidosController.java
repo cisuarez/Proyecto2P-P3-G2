@@ -255,7 +255,7 @@ public class ConsultaPartidosController implements Initializable {
                         cbgrupo.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
-                                if(!cbgrupo.getValue().equals("")){
+                                if(cbgrupo.getValue()!=null){
                                     cargarEquiposEnComboBox(cbgrupo.getValue().charAt(0));
                                 }
                             }
@@ -291,7 +291,13 @@ public class ConsultaPartidosController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 partidoescena.getChildren().clear();
-                consultar();
+                try{
+                    consultar();
+                }catch(NullPointerException n){
+                    System.out.println("No ha ingresado algún valor");
+                }catch(Exception exce){
+                    System.out.println("Se ha generado una excepción");
+                }
             }
         });
     }

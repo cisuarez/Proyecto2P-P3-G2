@@ -22,6 +22,7 @@ public class Principal extends Application{
     public static String pathFiles="src/main/resources/Archivos_CSV/";
     public static String pathImg="src/main/resources/Jugadores/";
     public static String pathImgBanderas="src/main/resources/Images/Banderas/";
+    public static String pathImgGeneral="src/main/resources/Images/";
 
     @Override
     public void start(Stage stage) throws IOException {
