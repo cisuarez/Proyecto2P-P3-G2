@@ -17,14 +17,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -136,11 +141,68 @@ public class ConsultaPartidosController implements Initializable {
             
             Label titulo = new Label();
             titulo.setTextAlignment(TextAlignment.CENTER);
-            VBox equipo1=crearContenedorJugador(cantidadJugadoresEquipo1,nombreEquipo1);
-            VBox equipo2=crearContenedorJugador(cantidadJugadoresEquipo2,nombreEquipo2);
+            VBox equipo1=crearContenedorEquipo(cantidadJugadoresEquipo1,nombreEquipo1);
+            VBox equipo2=crearContenedorEquipo(cantidadJugadoresEquipo2,nombreEquipo2);
             root.getChildren().addAll(titulo,equipo1,equipo2);
             
-
+            ScrollPane scrollEquipo1=(ScrollPane)equipo1.getChildren().get(1);
+            HBox hbEquipo1=(HBox) scrollEquipo1.getContent();
+            List<Node> vBoxsEquipo1=hbEquipo1.getChildren();
+            ScrollPane scrollEquipo2=(ScrollPane)equipo2.getChildren().get(1);
+            HBox hbEquipo2=(HBox) scrollEquipo2.getContent();
+            List<Node> vBoxsEquipo2=hbEquipo2.getChildren();
+            List<Integer> numeros=IntStream.rangeClosed(0,45).boxed().collect(Collectors.toList());
+            Thread hilo=new Thread(new Runnable(){
+                @Override
+                public void run(){
+                    for(int i=0;i<46;i++){
+                        try{
+                            if(i==0){
+                                Thread.sleep(5000);
+                            }else{
+                                Thread.sleep(200);
+                            }
+                        }catch(InterruptedException inter){
+                            
+                        }
+                        Collections.shuffle(numeros);
+                        int indiceAleatorio=numeros.get(0);
+                        if(indiceAleatorio>=23){
+                            Jugador jugadorSeleccionado=cbequipo2.getValue().getJugadores().get(indiceAleatorio-23);
+                            VBox contenedor2=(VBox)vBoxsEquipo2.get(indiceAleatorio-23);
+                            ImageView imgvASetear=(ImageView)contenedor2.getChildren().get(0);
+                            Label lblNombre=(Label)contenedor2.getChildren().get(1);
+                            Label lblJugador=(Label)contenedor2.getChildren().get(2);
+                            Image imgJugador=ManejoArchivos.abrirImagen(Principal.pathImg+jugadorSeleccionado.getImgPath());
+                            Platform.runLater(new Runnable(){
+                                @Override
+                                public void run(){
+                                    imgvASetear.setImage(imgJugador);
+                                    lblNombre.setText(jugadorSeleccionado.getNombre());
+                                    lblJugador.setVisible(false);
+                                }
+                            });
+                        }else{
+                            Jugador jugadorSeleccionado=cbequpo1.getValue().getJugadores().get(indiceAleatorio);
+                            VBox contenedor1=(VBox)vBoxsEquipo1.get(indiceAleatorio);
+                            ImageView imgvASetear=(ImageView)contenedor1.getChildren().get(0);
+                            Label lblNombre=(Label)contenedor1.getChildren().get(1);
+                            Label lblJugador=(Label)contenedor1.getChildren().get(2);
+                            
+                            Image imgJugador=ManejoArchivos.abrirImagen(Principal.pathImg+jugadorSeleccionado.getImgPath());
+                            Platform.runLater(new Runnable(){
+                            @Override
+                                public void run(){
+                                    imgvASetear.setImage(imgJugador);
+                                    lblNombre.setText(jugadorSeleccionado.getNombre());
+                                    lblJugador.setVisible(false);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+            hilo.start();
         });
         Partido partido = null;
         for (Partido parti : partidos) {
@@ -301,7 +363,7 @@ public class ConsultaPartidosController implements Initializable {
             }
         });
     }
-    private VBox crearContenedorJugador(int numeroDeJugadores, String nombreEquipo) {
+    private VBox crearContenedorEquipo(int numeroDeJugadores, String nombreEquipo) {
         VBox contenedorEquipo = new VBox();
         Label equipo = new Label(nombreEquipo);     
         ScrollPane scrollPane = new ScrollPane();
@@ -313,14 +375,11 @@ public class ConsultaPartidosController implements Initializable {
             VBox vbox = new VBox();
             vbox.setAlignment(Pos.CENTER);        
             Label nombre = new Label("Nombre");          
-            Label jugador = new Label("Jugador");      
-            ImageView imgv = new ImageView();
-            try ( FileInputStream input = new FileInputStream(Principal.pathImg + "DEFAULT.png")) {
-                Image image = new Image(input, 90, 90, true, false);
-                imgv.setImage(image);
-            } catch (IOException e1) {
-                System.out.println("No se encuentra la imagen");
-            }
+            Label jugador = new Label("Jugador");
+            Image porDefecto=ManejoArchivos.abrirImagen(Principal.pathImg + "DEFAULT.png");
+            ImageView imgv = new ImageView(porDefecto);
+            imgv.setFitHeight(90);
+            imgv.setFitWidth(90);
             vbox.getChildren().addAll(imgv, nombre, jugador);
             prueba.getChildren().add(vbox);
             
