@@ -4,6 +4,10 @@
  */
 package Modelo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +16,18 @@ import java.util.ArrayList;
  */
 public class Prueba {
     public static void main(String[] args) {
-        ArrayList<Partido> xd=Partido.cargarPartidos("src/main/resources/Archivos_CSV/WorldCupMatchesBrasil2014.csv");
-        for(Partido p: xd){
-            System.out.println(p);
+        ArrayList<Jugador> a=null;
+        try(ObjectInputStream ob=new ObjectInputStream(new FileInputStream("jugadoresGrupoB.bin"))){
+            a=(ArrayList<Jugador>) ob.readObject();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        for(Jugador jugador:a){
+            System.out.println(jugador.getAbrEquipo());
         }
     }
 }
