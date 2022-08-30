@@ -30,7 +30,7 @@ public class VentanaMenuController implements Initializable {
     }    
     @FXML
     private void cambiarConsultaPartidos(ActionEvent event) throws IOException {
-        Principal.cargarVentana("ConsultaPartidos",640,480);
+        Principal.cargarVentana("ConsultaPartidos",810,494);
         
         
     }
