@@ -4,19 +4,26 @@
  */
 package Proyecto2P_P3_G2;
 
+import Herramientas.ManejoArchivos;
 import Modelo.Equipo;
 import Modelo.Jugador;
 import Modelo.Partido;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +33,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
@@ -76,20 +84,30 @@ public class ConsultaPartidosController implements Initializable {
         HBox match = new HBox();
         VBox arreglo = new VBox();
         Label labelConsultas = new Label();
+        labelConsultas.setStyle("-fx-font-weight:bold");
         Label lbFecha = new Label();
+        lbFecha.setStyle("-fx-font-size: 15");
         Label lbFechayHora = new Label();
         Label lbFase = new Label();
+        lbFase.setStyle("-fx-font-weight:bold");
         Label lbEstadio = new Label();
         Label lbciudad = new Label();
         Label lbmarcador = new Label();
+        lbmarcador.setStyle("-fx-font-size: 20");
         Label lbLocal = new Label();
+        lbLocal.setStyle("-fx-font-size: 20");
         Label lbVisitante = new Label();
+        lbVisitante.setStyle("-fx-font-size: 20");
         Label finalPartido = new Label("FINAL DEL PARTIDO");
         ImageView igLocal = new ImageView();
         ImageView igVisitante = new ImageView();
         Separator sepPartidos = new Separator();
         Button btnExportarResultados = new Button("EXPORTAR RESULTADOS DE GRUPO");
+        btnExportarResultados.setAlignment(Pos.CENTER);
+        btnExportarResultados.setStyle("-fx-background-color:#20def7;-fx-text-fill:white");
         Button btnVerDetalles = new Button("VER DETALLE DE EQUIPOS");
+        btnVerDetalles.setStyle("-fx-background-color:#20def7;-fx-text-fill:white");
+        btnVerDetalles.setAlignment(Pos.CENTER);
         btnExportarResultados.setOnAction(e->{
             Principal.cargarVentana("ExportarResultados",440,200);
             String a=cbfase.getValue();
@@ -133,7 +151,7 @@ public class ConsultaPartidosController implements Initializable {
         if (partido != null) {
             labelConsultas.setText("");
             labelConsultas.setText("Resultados del partido");
-            lbFecha.setText(partido.getFecha());
+            lbFecha.setText(fechaEspañol(partido.getFecha()));
             lbFechayHora.setText(partido.getFecha() + "-" + partido.getHora() + " Hora Local");
             if (cbfase.getValue().equals("Grupos")) {
                 lbFase.setText("Grupo " + partido.getGrupo());
@@ -146,6 +164,14 @@ public class ConsultaPartidosController implements Initializable {
             lbLocal.setText(cbequpo1.getValue().getNombre());
             lbVisitante.setText(cbequipo2.getValue().getNombre());
             lbEstadio.setText(partido.getEstadio());
+            Image igVisi =ManejoArchivos.abrirImagen(Principal.pathImgBanderas+cbequipo2.getValue().getAbreviatura()+".jpg");
+            igVisitante.setImage(igVisi);
+            igVisitante.setFitHeight(30);
+            igVisitante.setPreserveRatio(true);
+            Image igLoc =ManejoArchivos.abrirImagen(Principal.pathImgBanderas+cbequpo1.getValue().getAbreviatura()+".jpg");
+            igLocal.setImage(igLoc);
+            igLocal.setFitHeight(30);
+            igLocal.setPreserveRatio(true);
 
             conteSeparador.getChildren().addAll(lbFecha, sepPartidos);
             resultados.getChildren().addAll(labelConsultas);
@@ -153,17 +179,23 @@ public class ConsultaPartidosController implements Initializable {
 
             match.getChildren().addAll(igLocal, lbLocal, lbmarcador, lbVisitante, igVisitante);
             match.setAlignment(Pos.CENTER);
-            match.setSpacing(30);
+            match.setSpacing(50);
             detallesPartido.getChildren().addAll(lbFechayHora, lbFase, lbEstadio, lbciudad);
+            detallesPartido.setSpacing(5);
+            
+            
+            
             arreglo.getChildren().addAll(finalPartido, match);
             arreglo.setFillWidth(true);
             detallesGeneral.getChildren().addAll(detallesPartido, arreglo);
-            detallesGeneral.setSpacing(120);
+            detallesGeneral.setSpacing(50);
             botones.getChildren().addAll(btnExportarResultados, btnVerDetalles);
+            botones.setAlignment(Pos.CENTER);
             botones.setSpacing(10);
             arreglo.setAlignment(Pos.CENTER);
 
             grandote.getChildren().addAll(resultados, conteSeparador, detallesGeneral, botones);
+            grandote.setPadding(new Insets(10));
 
             partidoescena.getChildren().addAll(grandote);
 
@@ -231,6 +263,7 @@ public class ConsultaPartidosController implements Initializable {
 
                         break;
                     case "Ronda de 16":
+                        
                         cargarEquipoFase("Round of 16");
 
                         break;
@@ -302,5 +335,31 @@ public class ConsultaPartidosController implements Initializable {
         ArrayList<Equipo> equipos16 = ConsultaPartidosController.llenarFase(fase);
         cbequpo1.getItems().setAll(equipos16);
         cbequipo2.getItems().setAll(equipos16);
+    }
+
+       
+    public static String fechaEspañol(String fecha){
+        String[] arreglo= fecha.split(" ");
+        int mes1;
+        String fecha1="";
+        if(arreglo[1].equals("Jun")){
+            mes1=06; 
+        }else{
+            mes1=07;
+        }
+        try {
+                String inputDateStr = String.format("%s/%s/%s", Integer.valueOf(arreglo[0]),mes1, Integer.valueOf(arreglo[2]));
+                Date inputDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDateStr);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(inputDate);
+                String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.forLanguageTag("es")).toLowerCase();
+                String mes = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.forLanguageTag("es")).toLowerCase();
+                fecha1=dayOfWeek+" "+arreglo[0]+" "+mes;
+                return fecha1;
+                
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        return fecha1;
     }
 }
