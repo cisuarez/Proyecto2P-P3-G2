@@ -63,7 +63,7 @@ public class ConsultaPartidosController implements Initializable {
     private Button btnconsultar;
 
     public static ArrayList<Partido> partidos = Partido.cargarPartidos(Principal.pathFiles+"WorldCupMatchesBrasil2014.csv");
-//    public static ArrayList<Equipo> equipos = Equipo.cargarEquipos(Principal.pathFiles+"WorldCupMatchesBrasil2014.csv");
+    public static ArrayList<Equipo> equiposSerializar= new ArrayList<>();
 
     public void consultar() {
         VBox grandote = new VBox();
@@ -220,42 +220,57 @@ public class ConsultaPartidosController implements Initializable {
                                 switch (cbgrupo.getValue()) {
                                     case "A":
                                         ArrayList<Equipo> equiposA = ConsultaPartidosController.llenarGrupo('A');
-                                        
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposA);
                                         cbequpo1.getItems().setAll(equiposA);
                                         cbequipo2.getItems().setAll(equiposA);
                                         break;
                                     case "B":
                                         ArrayList<Equipo> equiposB = ConsultaPartidosController.llenarGrupo('B');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposB);
                                         cbequpo1.getItems().setAll(equiposB);
                                         cbequipo2.getItems().setAll(equiposB);
                                         break;
                                     case "C":
                                         ArrayList<Equipo> equiposC = ConsultaPartidosController.llenarGrupo('C');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposC);
                                         cbequpo1.getItems().setAll(equiposC);
                                         cbequipo2.getItems().setAll(equiposC);
                                         break;
                                     case "D":
                                         ArrayList<Equipo> equiposD = ConsultaPartidosController.llenarGrupo('D');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposD);
                                         cbequpo1.getItems().setAll(equiposD);
                                         cbequipo2.getItems().setAll(equiposD);
                                         break;
                                     case "E":
                                         ArrayList<Equipo> equiposE = ConsultaPartidosController.llenarGrupo('E');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposE);
                                         cbequpo1.getItems().setAll(equiposE);
                                         cbequipo2.getItems().setAll(equiposE);
                                         break;
                                     case "F":
                                         ArrayList<Equipo> equiposF = ConsultaPartidosController.llenarGrupo('F');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposF);
                                         cbequpo1.getItems().setAll(equiposF);
                                         cbequipo2.getItems().setAll(equiposF);
                                         break;
                                     case "G":
                                         ArrayList<Equipo> equiposG = ConsultaPartidosController.llenarGrupo('G');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposG);
                                         cbequpo1.getItems().setAll(equiposG);
                                         cbequipo2.getItems().setAll(equiposG);
                                         break;
                                     case "H":
                                         ArrayList<Equipo> equiposH = ConsultaPartidosController.llenarGrupo('H');
+                                        equiposSerializar.clear();
+                                        equiposSerializar.addAll(equiposH);
                                         cbequpo1.getItems().setAll(equiposH);
                                         cbequipo2.getItems().setAll(equiposH);
                                         break;
@@ -270,32 +285,40 @@ public class ConsultaPartidosController implements Initializable {
                     case "Ronda de 16":
                         cbgrupo.setVisible(false);
                         lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposH = ConsultaPartidosController.llenarFase("Round of 16");
-                        cbequpo1.getItems().setAll(equiposH);
-                        cbequipo2.getItems().setAll(equiposH);
+                        ArrayList<Equipo> equipos16 = ConsultaPartidosController.llenarFase("Round of 16");
+                        equiposSerializar.clear();
+                        equiposSerializar.addAll(equipos16);
+                        cbequpo1.getItems().setAll(equipos16);
+                        cbequipo2.getItems().setAll(equipos16);
 
                         break;
                     case "Cuartos de Final":
                         cbgrupo.setVisible(false);
                         lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposx = ConsultaPartidosController.llenarFase("Quarter-finals");
-                        cbequpo1.getItems().setAll(equiposx);
-                        cbequipo2.getItems().setAll(equiposx);
+                        ArrayList<Equipo> equiposX = ConsultaPartidosController.llenarFase("Quarter-finals");
+                        equiposSerializar.clear();
+                        equiposSerializar.addAll(equiposX);
+                        cbequpo1.getItems().setAll(equiposX);
+                        cbequipo2.getItems().setAll(equiposX);
 
                         break;
                     case "Semifinal":
                         cbgrupo.setVisible(false);
                         lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposz = ConsultaPartidosController.llenarFase("Semi-finals");
-                        cbequpo1.getItems().setAll(equiposz);
-                        cbequipo2.getItems().setAll(equiposz);
+                        ArrayList<Equipo> equiposZ = ConsultaPartidosController.llenarFase("Semi-finals");
+                        equiposSerializar.clear();
+                        equiposSerializar.addAll(equiposZ);
+                        cbequpo1.getItems().setAll(equiposZ);
+                        cbequipo2.getItems().setAll(equiposZ);
                         break;
                     case "Final":
                         cbgrupo.setVisible(false);
                         lbgrupo.setVisible(false);
-                        ArrayList<Equipo> equiposc = ConsultaPartidosController.llenarFase("Final");
-                        cbequpo1.getItems().setAll(equiposc);
-                        cbequipo2.getItems().setAll(equiposc);
+                        ArrayList<Equipo> equiposC = ConsultaPartidosController.llenarFase("Final");
+                        equiposSerializar.clear();
+                        equiposSerializar.addAll(equiposC);
+                        cbequpo1.getItems().setAll(equiposC);
+                        cbequipo2.getItems().setAll(equiposC);
                         break;
                     default:
                         break;
