@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * @author Andres
  */
 public class Partido {
 
@@ -106,6 +106,13 @@ public class Partido {
         this.grupo = grupo;
     }
     
+    /**
+     * El mètodo recibe el nombre del archivo del cual sacará la información de los partidos 
+     * Con la información llena un arrayList de Partidos, separando las lineas del archivo separadas por comas
+     * retorna el arrayList de partidos
+     * @param nombreArchivo
+     * @return 
+     */
     public static ArrayList<Partido> cargarPartidos(String nombreArchivo){
         ArrayList<Partido> arregloPartido=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
