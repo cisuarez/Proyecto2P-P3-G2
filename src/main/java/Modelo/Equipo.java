@@ -19,7 +19,7 @@ public class Equipo implements Comparable<Equipo> {
     private ArrayList<Jugador> jugadores;
     private int mundialesGanados;
     private String abreviatura;
-    public transient static ArrayList<Jugador> jugadoresCargados=Jugador.cargarJugadores();
+    public static ArrayList<Jugador> jugadoresCargados=Jugador.cargarJugadores();
     
     public Equipo(String nombre, String abreviatura) {
         this.nombre = nombre;
