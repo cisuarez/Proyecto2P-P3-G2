@@ -185,13 +185,17 @@ public class ConsultaPartidosController implements Initializable {
                             imagenJug.setImage(imgvASetear.getImage());
                             imagenJug.setFitHeight(150);
                             imagenJug.setPreserveRatio(true);
-                            TextArea detallesJug= new TextArea();
-                            detallesJug.setStyle("-fx-alignment:center");
-                            detallesJug.setEditable(false);
+                            VBox detallePlayer=new VBox();
+                            detallePlayer.setStyle("-fx-background-color:#20def7");
+                            detallePlayer.setAlignment(Pos.CENTER);
+                            Label abreviatura=new Label(jugadorSeleccionado.getAbrEquipo());
+                            Label dorsal=new Label("CAMISETA NRO "+jugadorSeleccionado.getDorsal());
+                            Label dt=new Label("DIR. TEC."+jugadorSeleccionado.getDirectorTecnico());
+                            detallePlayer.getChildren().addAll(abreviatura,dorsal,dt);
                             Label tiempoMostrado=new Label(); 
-                            detallesJug.setText(jugadorSeleccionado.getAbrEquipo()+"\n"+"CAMISETA NRO "+jugadorSeleccionado.getDorsal()+"\n"+"DIR. TEC."+jugadorSeleccionado.getDirectorTecnico());
+                            detallePlayer.setMaxWidth(190);
                             
-                            detalleJugador.getChildren().addAll(nombreJug,imagenJug,detallesJug,tiempoMostrado);
+                            detalleJugador.getChildren().addAll(nombreJug,imagenJug,detallePlayer,tiempoMostrado);
                             detalleJugador.setPadding(new Insets(10));
          
                             Scene scene=new Scene(detalleJugador,250,340);
