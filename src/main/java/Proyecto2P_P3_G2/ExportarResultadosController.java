@@ -56,8 +56,6 @@ public class ExportarResultadosController implements Initializable {
         }
         try ( ObjectOutputStream ob = new ObjectOutputStream(new FileOutputStream("jugadores" + ConsultaPartidosController.faseSerializada + ".bin"))) {
             ob.writeObject(jugadores);
-            System.out.println("Si funciona");
-
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
