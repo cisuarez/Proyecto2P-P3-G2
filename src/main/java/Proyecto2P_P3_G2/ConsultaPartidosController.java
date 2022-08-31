@@ -199,6 +199,7 @@ public class ConsultaPartidosController implements Initializable {
                                 }
                             });
                         }
+                        numeros.remove(0);
                     }
                 }
             });
