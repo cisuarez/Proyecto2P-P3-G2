@@ -36,6 +36,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -171,6 +172,62 @@ public class ConsultaPartidosController implements Initializable {
                             Jugador jugadorSeleccionado=cbequipo2.getValue().getJugadores().get(indiceAleatorio-23);
                             VBox contenedor2=(VBox)vBoxsEquipo2.get(indiceAleatorio-23);
                             ImageView imgvASetear=(ImageView)contenedor2.getChildren().get(0);
+                            imgvASetear.setOnMouseClicked(e -> {
+                            
+                                
+                            VBox detalleJugador =new VBox();
+                            detalleJugador.setAlignment(Pos.CENTER);
+                            detalleJugador.setSpacing(15);
+                            detalleJugador.setStyle("-fx-background-color:white");
+                            Label nombreJug=new Label(jugadorSeleccionado.getNombre());
+                            nombreJug.setStyle("-fx-font-size: 20");
+                            ImageView imagenJug= new ImageView();
+                            imagenJug.setImage(imgvASetear.getImage());
+                            imagenJug.setFitHeight(150);
+                            imagenJug.setPreserveRatio(true);
+                            TextArea detallesJug= new TextArea();
+                            detallesJug.setStyle("-fx-alignment:center");
+                            detallesJug.setEditable(false);
+                            Label tiempoMostrado=new Label(); 
+                            detallesJug.setText(jugadorSeleccionado.getAbrEquipo()+"\n"+"CAMISETA NRO "+jugadorSeleccionado.getDorsal()+"\n"+"DIR. TEC."+jugadorSeleccionado.getDirectorTecnico());
+                            
+                            detalleJugador.getChildren().addAll(nombreJug,imagenJug,detallesJug,tiempoMostrado);
+                            detalleJugador.setPadding(new Insets(10));
+         
+                            Scene scene=new Scene(detalleJugador,250,340);
+                            Stage stage=new Stage();
+                            stage.setScene(scene);
+                            stage.show();
+                            
+                            Thread hiloDetallesJugadores=new Thread(new Runnable(){
+                               
+                            @Override
+                            public void run(){
+                                for(int i=10;0<=i;i--){
+                                    int contador = i;
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (contador == 0) {
+                                                stage.close();
+                                            }
+                                            tiempoMostrado.setText("Mostrando por " + contador + " segundos");
+
+                                        }
+                                        
+                                        
+                                    });
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                   
+                                }                                  
+                            }
+                            });
+                            hiloDetallesJugadores.start();
+                            });
                             Label lblNombre=(Label)contenedor2.getChildren().get(1);
                             Label lblJugador=(Label)contenedor2.getChildren().get(2);
                             Image imgJugador=ManejoArchivos.abrirImagen(Principal.pathImg+jugadorSeleccionado.getImgPath());
@@ -259,6 +316,8 @@ public class ConsultaPartidosController implements Initializable {
 
             grandote.getChildren().addAll(resultados, conteSeparador, detallesGeneral, botones);
             grandote.setPadding(new Insets(10));
+            grandote.setStyle("-fx-background-color:white");
+           
 
             partidoescena.getChildren().addAll(grandote);
 
