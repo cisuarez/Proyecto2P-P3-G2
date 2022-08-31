@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.ConsultaPartidosController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="811.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto2P_P3_G2.ConsultaPartidosController">
    <children>
-      <HBox alignment="CENTER" prefHeight="102.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="102.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
             <Label text="Consulta de Partidos">
                <font>
@@ -19,7 +19,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
             <Label text="Fase:">
                <HBox.margin>
@@ -39,7 +39,7 @@
             <ComboBox fx:id="cbgrupo" prefWidth="150.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="574.0">
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="574.0" style="-fx-background-color: white;">
          <children>
             <Label text="Equipo 1:">
                <HBox.margin>
@@ -60,11 +60,11 @@
             <ComboBox fx:id="cbequipo2" prefWidth="150.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
             <Button fx:id="btnconsultar" mnemonicParsing="false" prefHeight="24.0" prefWidth="114.0" style="-fx-background-color: #20def7;" text="Consultar" textFill="WHITE" />
          </children>
       </HBox>
-      <VBox fx:id="partidoescena" prefHeight="236.0" prefWidth="600.0" />
+      <VBox fx:id="partidoescena" prefHeight="236.0" prefWidth="600.0" style="-fx-background-color: white;" />
    </children>
 </VBox>
