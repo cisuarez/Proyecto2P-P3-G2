@@ -97,17 +97,21 @@ public class ConsultaMundialesController implements Initializable {
     public void mostrarSeccionPremios(Mundial m) {
         lblAvisoConsulta.setText("");
         VBox seccionPremios=new VBox();
+        seccionPremios.setStyle("-fx-background-color:white");
         Label lblPremios=new Label("Premios");
         lblPremios.setStyle("-fx-font-size: 16");
         Separator sepPremios=new Separator();
         lblPremios.setStyle("-fx-font-size: 16");
         HBox hbPremios=new HBox();
+        hbPremios.setStyle("-fx-background-color:white");
         hbPremios.setSpacing(16);
         VBox vbPosiciones=new VBox();
         vbPosiciones.setSpacing(16);
         VBox vbPaises=new VBox();
+        vbPaises.setStyle("-fx-background-color:white");
         vbPaises.setSpacing(16);
         VBox vbCopas=new VBox();
+        vbCopas.setStyle("-fx-background-color:white");
         vbCopas.setSpacing(10);
         crearSeccion(m,vbPosiciones,vbPaises,vbCopas);
         hbPremios.getChildren().addAll(vbPosiciones,vbPaises,vbCopas);
@@ -123,10 +127,12 @@ public class ConsultaMundialesController implements Initializable {
      */
     public void mostrarSeccionDatosGenerales(Mundial m){
         VBox seccionDatosGenerales=new VBox();
+        seccionDatosGenerales.setStyle("-fx-background-color:white");
         Label lblDatosGenerales=new Label("Datos Generales");
         lblDatosGenerales.setStyle("-fx-font-size: 16");
         Separator sepDatos=new Separator();
         VBox cabecera=new VBox();
+        cabecera.setStyle("-fx-background-color:white");
         cabecera.getChildren().addAll(lblDatosGenerales,sepDatos);
         cabecera.setSpacing(1);
         Label lblGoles=new Label("Goles anotados: "+m.getGolesAnotados());
@@ -162,6 +168,7 @@ public class ConsultaMundialesController implements Initializable {
             lblEquipo.setStyle("-fx-font-size: 14");
             lblEquipo.setAlignment(Pos.BOTTOM_LEFT);
             HBox pais=new HBox();
+            pais.setStyle("-fx-background-color:white");
             Image bandera=ManejoArchivos.abrirImagen(Principal.pathImgBanderas+m.getFinalistas().get(i).getAbreviatura()+".jpg");
             ImageView imgvEquipo=new ImageView(bandera);
             imgvEquipo.setFitHeight(15);
@@ -170,6 +177,7 @@ public class ConsultaMundialesController implements Initializable {
             pais.setSpacing(3);
             pais.setAlignment(Pos.CENTER_LEFT);
             HBox paisCopas=new HBox();
+            paisCopas.setStyle("-fx-background-color:white");
             paisCopas.setMinHeight(25);
             paisCopas.setSpacing(5);
             Image imgCopa=ManejoArchivos.abrirImagen(Principal.pathImgGeneral+"copa.png");
