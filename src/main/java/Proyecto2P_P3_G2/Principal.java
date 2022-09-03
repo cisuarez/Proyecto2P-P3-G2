@@ -24,7 +24,7 @@ public class Principal extends Application{
     public static String pathImgBanderas="src/main/resources/Images/Banderas/";
     public static String pathImgGeneral="src/main/resources/Images/";
     /**
-     * metodo que carga la escena y la muestra
+     * Método que carga la escena y la muestra
      * @param stage
      * @throws IOException 
      */
@@ -37,7 +37,7 @@ public class Principal extends Application{
 
   
     /**
-     * metodo que carga el fxml y tira una excepcion de tipo IOException
+     * Método que carga el fxml y tira una excepción de tipo IOException
      * @param fxml
      * @return
      * @throws IOException 
@@ -47,7 +47,7 @@ public class Principal extends Application{
         return fxmlLoader.load();
     }
     /**
-     * metodo estatico que carga la ventana que recibe como parametro
+     * Método estático que carga la ventana que recibe como parámetro
      * @param ventana
      * @param height
      * @param width 
@@ -65,7 +65,7 @@ public class Principal extends Application{
         
     }
     /**
-     * metodo main que inicie el programa
+     * Método main que inicia el programa
      * @param args 
      */
     public static void main(String[] args) {
