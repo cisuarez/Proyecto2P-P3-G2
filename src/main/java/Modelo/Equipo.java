@@ -19,55 +19,107 @@ public class Equipo implements Comparable<Equipo> {
     private ArrayList<Jugador> jugadores;
     private int mundialesGanados;
     private String abreviatura;
-    public static ArrayList<Jugador> jugadoresCargados=Jugador.cargarJugadores();
+
     
+    private static ArrayList<Jugador> jugadoresCargados=Jugador.cargarJugadores();
+    
+    /**
+     *
+     * @param nombre
+     * @param abreviatura
+     */
     public Equipo(String nombre, String abreviatura) {
         this.nombre = nombre;
         this.abreviatura = abreviatura;
-        cargarJugadores(abreviatura);
+        llenarJugadores(abreviatura);
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public Equipo(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
 
+    /**
+     *
+     * @param jugadores
+     */
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMundialesGanados() {
         return mundialesGanados;
     }
 
+    /**
+     *
+     * @param mundialesGanados
+     */
     public void setMundialesGanados(int mundialesGanados) {
         this.mundialesGanados = mundialesGanados;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAbreviatura() {
         return abreviatura;
     }
 
+    /**
+     *
+     * @param abreviatura
+     */
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return nombre;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (o != null && o.getClass() == Equipo.class) {
@@ -78,6 +130,10 @@ public class Equipo implements Comparable<Equipo> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -85,12 +141,17 @@ public class Equipo implements Comparable<Equipo> {
         return hash;
     }
 
+    /**
+     *
+     * @param e
+     * @return
+     */
     @Override
     public int compareTo(Equipo e) {
         return this.nombre.compareTo(e.nombre);
     }
 
-    private void cargarJugadores(String teamIniciales) {
+    private void llenarJugadores(String teamIniciales) {
         ArrayList<Jugador> jugadoresE=new ArrayList<>();
         for(Jugador j:jugadoresCargados){
             if(teamIniciales.equals(j.getAbrEquipo())==true){
@@ -99,6 +160,12 @@ public class Equipo implements Comparable<Equipo> {
         }
         this.jugadores=jugadoresE;
     }
+
+    /**
+     *
+     * @param nombreArchivo
+     * @return
+     */
     public static ArrayList<Equipo> cargarEquipos(String nombreArchivo){
         ArrayList<Equipo> arregloEquipo=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
