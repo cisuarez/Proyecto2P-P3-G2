@@ -81,7 +81,6 @@ public class Jugador implements Serializable {
             bf.readLine();
             for(int i=0;i<2009;i++){
                 String[] datos=bf.readLine().split(",");
-                System.out.println(Arrays.toString(datos));
                 if(!jugadores.isEmpty()){
                     Jugador j2=null;
                     for(Jugador j:jugadores){
