@@ -133,6 +133,7 @@ public class ConsultaPartidosController implements Initializable {
             Stage stage = (Stage) btnVerDetalles.getScene().getWindow();
             stage.close();
             VBox root = new VBox();
+            root.setStyle("-fx-background-color:white");
             root.setSpacing(10);
             Scene scene = new Scene(root, 640, 520);
             Stage ventanaDetalleEquipos = new Stage();
@@ -345,13 +346,15 @@ public class ConsultaPartidosController implements Initializable {
 
     private VBox crearContenedorEquipo(int numeroDeJugadores, String nombreEquipo) {
         VBox contenedorEquipo = new VBox();
+        contenedorEquipo.setStyle("-fx-background-color:white");
         contenedorEquipo.setPadding(new Insets(5, 15, 5, 15));
         Label equipo = new Label(nombreEquipo);
         equipo.setStyle("-fx-font-weight: bold");
         equipo.setPadding(new Insets(10, 0, 10, 0));
-        ScrollPane scrollPane = new ScrollPane();
+        ScrollPane scrollPane = new ScrollPane();       
         scrollPane.setFitToWidth(true);
         HBox prueba = new HBox();
+        prueba.setStyle("-fx-background-color:white");
         prueba.setPadding(new Insets(15, 15, 10, 15));
         prueba.setSpacing(30);
         prueba.setPrefHeight(160);
