@@ -38,7 +38,10 @@ public class ExportarResultadosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+    /**
+     * metodo que serializa una lista de objetos jugador
+     * @param event 
+     */
     @FXML
     private void crearSerializado(ActionEvent event) {
         Stage s=(Stage)btnCancelar.getScene().getWindow();
@@ -62,7 +65,10 @@ public class ExportarResultadosController implements Initializable {
             ex.printStackTrace();
         }
     }
-
+    /**
+     * metodo que al dar clic en el btnCancelar cierra la ventana
+     * @param e 
+     */
     @FXML
     private void salir(ActionEvent e) {
         Stage s = (Stage) btnCancelar.getScene().getWindow();

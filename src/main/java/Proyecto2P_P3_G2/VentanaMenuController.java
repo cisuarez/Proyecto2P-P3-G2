@@ -28,12 +28,22 @@ public class VentanaMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    /**
+     * metodo que abre la ventana de consultar partidos
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void cambiarConsultaPartidos(ActionEvent event) throws IOException {
         Principal.cargarVentana("ConsultaPartidos",810,494);
         
         
     }
+    /**
+     * metodo que abre la ventana de consultar copas mundiales
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void cambiarConsultaCopasMundiales(ActionEvent event) throws IOException {
 
