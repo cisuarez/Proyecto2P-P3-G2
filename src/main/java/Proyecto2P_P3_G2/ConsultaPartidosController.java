@@ -80,6 +80,18 @@ public class ConsultaPartidosController implements Initializable {
     public static ArrayList<Equipo> equiposSerializar = new ArrayList<>();
     public static String faseSerializada;
 
+    /**
+     * El método consultar indica las acciones que sucederán una vez si haya dado click en el botón consultar.
+     * Dependiendo de los valores asignados por el usuario en el comboBox de equipo1 y equipo 2 al momento de presionar el botón.
+     * Se crea desde la programación el contenedor y los elementos necesarios para mostrar la información del partido, label, VBox, 
+     * Hbox, ImageView, Image. Se obtiene toda la información necesaria a partir de los equipos seleccionados en el comboBox de equipo
+     * Al final, se crean los botones btnVerDetalles y btnExportarResultados.
+     * El botón btnVerDetalles muestra los jugadores de los equipos seleccionados en el comboBox, a su vez se hace uso de un hilo 
+     * para mostrar los jugadores de progresivamente, al terminar de mostrar todos si el usuario desea ver los detalles del jugador le da click 
+     * a la imagen y se invoca el método crearHiloDetallesJugador
+     * En el caso del boton btnExportarResultados, se invoca a los métodos se serializa el la lista de los equipos, y se muestran ventanas que
+     * van guiando el proceso.
+     */
     public void consultar() {
         VBox grandote = new VBox();
         HBox resultados = new HBox();
@@ -249,6 +261,15 @@ public class ConsultaPartidosController implements Initializable {
 
     }
 
+    /**
+     * El método recibe el caracter del grupo.
+     * Recorre la lista estática de partidos, y en cada iteración se compara si el grupo de cada partido es igual 
+     * al parametro ingresado y si la lista que se va a llenar no contiene al partido.
+     * Se realiza este proceso para el equipo Local y para el equipo Visitante.
+     * Si cumplen las condiciones son agregadas a la lista de Equipo que será retornada al final del método.
+     * @param a
+     * @return
+     */
     public static ArrayList<Equipo> llenarGrupo(char a) {
         ArrayList<Equipo> equiposA = new ArrayList();
 
@@ -261,6 +282,15 @@ public class ConsultaPartidosController implements Initializable {
         return equiposA;
     }
 
+    /**
+     *El método recibe una fase.
+     * Recorre la lista estática de partidos, y en cada iteración se compara si la fase de cada partido es igual 
+     * al parametro ingresado y si la lista que se va a llenar no contiene al partido.
+     * Se realiza este proceso para el equipo Local y para el equipo Visitante.
+     * Si cumplen las condiciones son agregadas a la lista de Equipo que será retornada al final del método.
+     * @param e
+     * @return
+     */
     public static ArrayList<Equipo> llenarFase(String e) {
         ArrayList<Equipo> equiposA = new ArrayList();
 
@@ -381,12 +411,24 @@ public class ConsultaPartidosController implements Initializable {
 
     }
 
+    /**
+     * El método recibe un caracter como parametro, el parametro indica el grupo al que pertenecerán
+     * los equipos que se obtendrán tras utilizar el metodo llenarGrupo. Una vez obtenidos el arrayList de equipos
+     * que pertenecen al grupo indicado en el paramentro, se carga en los combobox las listas.
+     * @param character
+     */
     public void cargarEquiposEnComboBox(char character) {
         ArrayList<Equipo> equipos = ConsultaPartidosController.llenarGrupo(character);
         cbequpo1.getItems().setAll(equipos);
         cbequipo2.getItems().setAll(equipos);
     }
 
+    /**
+     * El método recibe la fase de la que se desea obtener los equipos.
+     * A la vez oculta el comboBox de grupo y se llena un ArrayList de equipos con el método llenar fase.
+     * Se cargan a los comboBox de equipos de la lista obtenida en base al parametro.
+     * @param fase
+     */
     public void cargarEquipoFase(String fase) {
         cbgrupo.setVisible(false);
         lbgrupo.setVisible(false);
@@ -394,7 +436,12 @@ public class ConsultaPartidosController implements Initializable {
         cbequpo1.getItems().setAll(equipos16);
         cbequipo2.getItems().setAll(equipos16);
     }
-
+    
+    /**
+     *Método utilizado para hacer la traducción de una fecha dada en ingles al español.
+     * @param fecha
+     * @return
+     */
     public static String fechaEspañol(String fecha) {
         String[] arreglo = fecha.split(" ");
         int mes1;
@@ -419,7 +466,16 @@ public class ConsultaPartidosController implements Initializable {
         }
         return fecha1;
     }
-
+    
+    /**
+     * El método muestra los detalles del jugador
+     * Se crea una escena y todos los elementos necesarios para mostar en una ventana aparte la imagen y los detalles del jugador 
+     * se le asigna un setOnMouseClicked para que al dar click en la imagen se asignen la respectiva información a los controles
+     * Posteriormente se crea un hilo para manejar el tiempo que se presentará la imagen.
+     * Una vez el temporizador llegue a 0, se cierra la ventana.
+     * @param contenedor
+     * @param jugadorSeleccionado
+     */
     public void crearHiloDetallesJugador(VBox contenedor,Jugador jugadorSeleccionado) {
         ImageView imgvASetear = (ImageView) contenedor.getChildren().get(0);
         imgvASetear.setOnMouseClicked(e -> {
