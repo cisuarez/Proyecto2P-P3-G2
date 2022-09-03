@@ -39,7 +39,7 @@ public class ConsultaMundialesController implements Initializable {
     private Label lblAvisoConsulta;
     @FXML
     private HBox seccionDinamica;
-    private static ArrayList<Mundial> arrMundiales=Mundial.cargarMundiales(Principal.pathFiles+"WorldCups.csv");
+    private static ArrayList<Mundial> arrMundiales=Mundial.cargarMundiales();
 
     /**
      * Inicializa la clase controladora. Se añade un controlador de eventos a btnConsultar para un ActionEvent
