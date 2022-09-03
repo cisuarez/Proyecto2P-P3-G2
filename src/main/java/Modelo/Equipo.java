@@ -85,10 +85,6 @@ public class Equipo implements Comparable<Equipo> {
         return hash;
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(nombre);
-//    }
     @Override
     public int compareTo(Equipo e) {
         return this.nombre.compareTo(e.nombre);
@@ -102,20 +98,11 @@ public class Equipo implements Comparable<Equipo> {
             }
         }
         this.jugadores=jugadoresE;
-//        ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(nombreArchivo, ",");
-//        for (String[] ele : listaArreglo) {
-//            if (this.abreviatura.equals(ele[2].trim())) {
-//                setJugadores(new ArrayList<Jugador>());
-//                jugadores.add(new Jugador(ele[6].trim(), ele[6] + ".png", Integer.parseInt(ele[5].trim()), ele[3]));
-//            }
-//        }
-    
     }
     public static ArrayList<Equipo> cargarEquipos(String nombreArchivo){
         ArrayList<Equipo> arregloEquipo=new ArrayList();
         ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
         for(String[] ele:listaArreglo){
-            //(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase)
             Equipo equipo=new Equipo(ele[5].trim(),ele[19].trim());         
             arregloEquipo.add(equipo);
         }
