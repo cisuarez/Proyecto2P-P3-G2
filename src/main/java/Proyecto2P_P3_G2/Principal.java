@@ -19,10 +19,10 @@ import javafx.stage.Stage;
 public class Principal extends Application{
     
     private static Scene scene;
-    public static String pathFiles="src/main/resources/Archivos_CSV/";
-    public static String pathImg="src/main/resources/Jugadores/";
-    public static String pathImgBanderas="src/main/resources/Images/Banderas/";
-    public static String pathImgGeneral="src/main/resources/Images/";
+    public static String pathFiles="Archivos_CSV/";
+    public static String pathImg="Jugadores/";
+    public static String pathImgBanderas="Images/Banderas/";
+    public static String pathImgGeneral="Images/";
     /**
      * Método que carga la escena y la muestra
      * @param stage
