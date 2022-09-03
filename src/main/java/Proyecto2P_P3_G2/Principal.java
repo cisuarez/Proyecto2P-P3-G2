@@ -23,7 +23,11 @@ public class Principal extends Application{
     public static String pathImg="src/main/resources/Jugadores/";
     public static String pathImgBanderas="src/main/resources/Images/Banderas/";
     public static String pathImgGeneral="src/main/resources/Images/";
-
+    /**
+     * metodo que carga la escena y la muestra
+     * @param stage
+     * @throws IOException 
+     */
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("VentanaMenu"), 640, 480);
@@ -31,18 +35,23 @@ public class Principal extends Application{
         stage.show();
     }
 
-    static void setRoot(String fxml)  {
-        try {
-            scene.setRoot(loadFXML(fxml));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
+  
+    /**
+     * metodo que carga el fxml y tira una excepcion de tipo IOException
+     * @param fxml
+     * @return
+     * @throws IOException 
+     */
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+    /**
+     * metodo estatico que carga la ventana que recibe como parametro
+     * @param ventana
+     * @param height
+     * @param width 
+     */
     public static void cargarVentana(String ventana,int height,int width){
         Scene scene=null;
         try {
@@ -55,6 +64,10 @@ public class Principal extends Application{
         stage.show();
         
     }
+    /**
+     * metodo main que inicie el programa
+     * @param args 
+     */
     public static void main(String[] args) {
         launch();
         
