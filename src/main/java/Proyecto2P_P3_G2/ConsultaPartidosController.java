@@ -279,6 +279,7 @@ public class ConsultaPartidosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // TODO
+        partidoescena.setAlignment(Pos.TOP_CENTER);
         cbfase.getItems().addAll("Grupos", "Ronda de 16", "Cuartos de Final", "Semifinal", "Final");
         cbgrupo.setVisible(false);
         lbgrupo.setVisible(false);
@@ -336,7 +337,8 @@ public class ConsultaPartidosController implements Initializable {
                 try {
                     consultar();
                 } catch (NullPointerException n) {
-                    System.out.println("No ha ingresado algún valor");
+                    Label lb =new Label("No se ha seleccionado equipos.");
+                    partidoescena.getChildren().add(lb);
                 } catch (Exception exce) {
                     System.out.println("Se ha generado una excepción");
                 }
