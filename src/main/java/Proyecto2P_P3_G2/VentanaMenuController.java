@@ -4,6 +4,7 @@
  */
 package Proyecto2P_P3_G2;
 
+import Herramientas.ManejoArchivos;
 import static Proyecto2P_P3_G2.Principal.loadFXML;
 import java.io.IOException;
 import java.net.URL;
@@ -12,7 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+
+
 
 /**
  * FXML Controller class
@@ -20,12 +25,17 @@ import javafx.stage.Stage;
  * @author Michael
  */
 public class VentanaMenuController implements Initializable {
-
+    @FXML
+    private ImageView imgvPortada;
+    @FXML
+    private ImageView imgvMiniatura;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        imgvPortada.setImage(ManejoArchivos.abrirImagen(Principal.pathImgGeneral+"portada1.jpg"));
+        imgvMiniatura.setImage(ManejoArchivos.abrirImagen(Principal.pathImgGeneral+"logoWorldCup.jpg"));
         // TODO
     }    
     /**
