@@ -110,9 +110,9 @@ public class ConsultaPartidosController implements Initializable {
         Separator sepPartidos = new Separator();
         Button btnExportarResultados = new Button("EXPORTAR RESULTADOS DE GRUPO");
         btnExportarResultados.setAlignment(Pos.CENTER);
-        btnExportarResultados.setStyle("-fx-background-color:#20def7;-fx-text-fill:white");
+        btnExportarResultados.setStyle("-fx-background-color:#1cacde;-fx-text-fill:white");
         Button btnVerDetalles = new Button("VER DETALLE DE EQUIPOS");
-        btnVerDetalles.setStyle("-fx-background-color:#20def7;-fx-text-fill:white");
+        btnVerDetalles.setStyle("-fx-background-color:#1cacde;-fx-text-fill:white");
         btnVerDetalles.setAlignment(Pos.CENTER);
         btnExportarResultados.setOnAction(e -> {
             Principal.cargarVentana("ExportarResultados", 440, 200);
