@@ -9,6 +9,11 @@ package Proyecto2P_P3_G2;
  * @author CJAA
  */
 public class Starter {
+
+    /**
+     * Se llama al método main de la clase Principal
+     * @param args
+     */
     public static void main(String[] args) {
         Principal.main(args);
     }
