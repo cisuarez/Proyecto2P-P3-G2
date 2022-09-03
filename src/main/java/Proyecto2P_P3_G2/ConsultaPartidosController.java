@@ -76,21 +76,75 @@ public class ConsultaPartidosController implements Initializable {
     @FXML
     private Button btnconsultar;
 
+    /**
+     *
+     */
     public static ArrayList<Partido> partidos = Partido.cargarPartidos(Principal.pathFiles + "WorldCupMatchesBrasil2014.csv");
+
+    /**
+     * Variable estática que sirve para proveer los equipos a serializar al
+     * controller ExportarResultados
+     */
     public static ArrayList<Equipo> equiposSerializar = new ArrayList<>();
+
+    /**
+     * Variable estática que sirve para proveer el nombre de la fase a
+     * serializar al controller ExportarResultados
+     */
     public static String faseSerializada;
 
     /**
-     * El método consultar indica las acciones que sucederán una vez si haya dado click en el botón consultar.
-     * Dependiendo de los valores asignados por el usuario en el comboBox de equipo1 y equipo 2 al momento de presionar el botón.
-     * Se crea desde la programación el contenedor y los elementos necesarios para mostrar la información del partido, label, VBox, 
-     * Hbox, ImageView, Image. Se obtiene toda la información necesaria a partir de los equipos seleccionados en el comboBox de equipo
-     * Al final, se crean los botones btnVerDetalles y btnExportarResultados.
-     * El botón btnVerDetalles muestra los jugadores de los equipos seleccionados en el comboBox, a su vez se hace uso de un hilo 
-     * para mostrar los jugadores de progresivamente, al terminar de mostrar todos si el usuario desea ver los detalles del jugador le da click 
-     * a la imagen y se invoca el método crearHiloDetallesJugador
-     * En el caso del boton btnExportarResultados, se invoca a los métodos se serializa el la lista de los equipos, y se muestran ventanas que
-     * van guiando el proceso.
+     * Método initialize
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        partidoescena.setAlignment(Pos.TOP_CENTER);
+        cbfase.getItems().addAll("Grupos", "Ronda de 16", "Cuartos de Final", "Semifinal", "Final");
+        cbgrupo.setVisible(false);
+        lbgrupo.setVisible(false);
+        cbfase.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                llenarComboBoxEquipo();
+            }
+        });
+        btnconsultar.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                partidoescena.getChildren().clear();
+                try {
+                    consultar();
+                } catch (NullPointerException n) {
+                    Label lb = new Label("No se ha seleccionado equipos.");
+                    partidoescena.getChildren().add(lb);
+                } catch (Exception exce) {
+                    System.out.println("Se ha generado una excepción");
+                }
+            }
+        });
+    }
+
+    /**
+     * El método consultar indica las acciones que sucederán una vez si haya
+     * dado click en el botón consultar. Dependiendo de los valores asignados
+     * por el usuario en el comboBox de equipo1 y equipo 2 al momento de
+     * presionar el botón. Se crea desde la programación el contenedor y los
+     * elementos necesarios para mostrar la información del partido, label,
+     * VBox, Hbox, ImageView, Image. Se obtiene toda la información necesaria a
+     * partir de los equipos seleccionados en el comboBox de equipo Al final, se
+     * crean los botones btnVerDetalles y btnExportarResultados. El botón
+     * btnVerDetalles muestra los jugadores de los equipos seleccionados en el
+     * comboBox, a su vez se hace uso de un hilo para mostrar los jugadores de
+     * progresivamente, al terminar de mostrar todos si el usuario desea ver los
+     * detalles del jugador le da click a la imagen y se invoca el método
+     * crearHiloDetallesJugador En el caso del boton btnExportarResultados, se
+     * invoca a los métodos se serializa el la lista de los equipos, y se
+     * muestran ventanas que van guiando el proceso.
      */
     public void consultar() {
         VBox grandote = new VBox();
@@ -138,64 +192,7 @@ public class ConsultaPartidosController implements Initializable {
             }
         });
         btnVerDetalles.setOnAction(e -> {
-            String nombreEquipo1 = cbequpo1.getValue().getNombre();
-            int cantidadJugadoresEquipo1 = cbequpo1.getValue().getJugadores().size();
-            String nombreEquipo2 = cbequipo2.getValue().getNombre();
-            int cantidadJugadoresEquipo2 = cbequipo2.getValue().getJugadores().size();
-            Stage stage = (Stage) btnVerDetalles.getScene().getWindow();
-            stage.close();
-            VBox root = new VBox();
-            root.setStyle("-fx-background-color:white");
-            root.setSpacing(10);
-            Scene scene = new Scene(root, 640, 520);
-            Stage ventanaDetalleEquipos = new Stage();
-            ventanaDetalleEquipos.setScene(scene);
-            ventanaDetalleEquipos.show();
-            root.setAlignment(Pos.CENTER);
-            Label titulo = new Label("Detalle de equipos");
-            titulo.setStyle("-fx-font-weight: bold ;-fx-font-size:16");
-
-            titulo.setPadding(new Insets(5));
-            VBox equipo1 = crearContenedorEquipo(cantidadJugadoresEquipo1, nombreEquipo1);
-            VBox equipo2 = crearContenedorEquipo(cantidadJugadoresEquipo2, nombreEquipo2);
-            root.getChildren().addAll(titulo, equipo1, equipo2);
-
-            ScrollPane scrollEquipo1 = (ScrollPane) equipo1.getChildren().get(1);
-            HBox hbEquipo1 = (HBox) scrollEquipo1.getContent();
-            List<Node> vBoxsEquipo1 = hbEquipo1.getChildren();
-            ScrollPane scrollEquipo2 = (ScrollPane) equipo2.getChildren().get(1);
-            HBox hbEquipo2 = (HBox) scrollEquipo2.getContent();
-            List<Node> vBoxsEquipo2 = hbEquipo2.getChildren();
-            List<Integer> numeros = IntStream.rangeClosed(0, 45).boxed().collect(Collectors.toList());
-            Thread hilo = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < 46; i++) {
-                        try {
-                            if (i == 0) {
-                                Thread.sleep(5000);
-                            } else {
-                                Thread.sleep(200);
-                            }
-                        } catch (InterruptedException inter) {
-
-                        }
-                        Collections.shuffle(numeros);
-                        int indiceAleatorio = numeros.get(0);
-                        if (indiceAleatorio >= 23) {
-                            Jugador jugadorSeleccionado = cbequipo2.getValue().getJugadores().get(indiceAleatorio - 23);
-                            VBox contenedor = (VBox) vBoxsEquipo2.get(indiceAleatorio - 23);
-                            crearHiloDetallesJugador(contenedor,jugadorSeleccionado);
-                        } else {
-                            Jugador jugadorSeleccionado = cbequpo1.getValue().getJugadores().get(indiceAleatorio);
-                            VBox contenedor = (VBox) vBoxsEquipo1.get(indiceAleatorio);
-                            crearHiloDetallesJugador(contenedor,jugadorSeleccionado);
-                        }
-                        numeros.remove(0);
-                    }
-                }
-            });
-            hilo.start();
+            cargarVentanaDetalleEquipos(btnVerDetalles);
         });
         Partido partido = null;
         for (Partido parti : partidos) {
@@ -262,11 +259,13 @@ public class ConsultaPartidosController implements Initializable {
     }
 
     /**
-     * El método recibe el caracter del grupo.
-     * Recorre la lista estática de partidos, y en cada iteración se compara si el grupo de cada partido es igual 
-     * al parametro ingresado y si la lista que se va a llenar no contiene al partido.
-     * Se realiza este proceso para el equipo Local y para el equipo Visitante.
-     * Si cumplen las condiciones son agregadas a la lista de Equipo que será retornada al final del método.
+     * El método recibe el caracter del grupo. Recorre la lista estática de
+     * partidos, y en cada iteración se compara si el grupo de cada partido es
+     * igual al parametro ingresado y si la lista que se va a llenar no contiene
+     * al partido. Se realiza este proceso para el equipo Local y para el equipo
+     * Visitante. Si cumplen las condiciones son agregadas a la lista de Equipo
+     * que será retornada al final del método.
+     *
      * @param a
      * @return
      */
@@ -283,11 +282,13 @@ public class ConsultaPartidosController implements Initializable {
     }
 
     /**
-     *El método recibe una fase.
-     * Recorre la lista estática de partidos, y en cada iteración se compara si la fase de cada partido es igual 
-     * al parametro ingresado y si la lista que se va a llenar no contiene al partido.
-     * Se realiza este proceso para el equipo Local y para el equipo Visitante.
-     * Si cumplen las condiciones son agregadas a la lista de Equipo que será retornada al final del método.
+     * El método recibe una fase. Recorre la lista estática de partidos, y en
+     * cada iteración se compara si la fase de cada partido es igual al
+     * parametro ingresado y si la lista que se va a llenar no contiene al
+     * partido. Se realiza este proceso para el equipo Local y para el equipo
+     * Visitante. Si cumplen las condiciones son agregadas a la lista de Equipo
+     * que será retornada al final del método.
+     *
      * @param e
      * @return
      */
@@ -305,77 +306,6 @@ public class ConsultaPartidosController implements Initializable {
         return equiposA;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        // TODO
-        partidoescena.setAlignment(Pos.TOP_CENTER);
-        cbfase.getItems().addAll("Grupos", "Ronda de 16", "Cuartos de Final", "Semifinal", "Final");
-        cbgrupo.setVisible(false);
-        lbgrupo.setVisible(false);
-        cbfase.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                switch (cbfase.getValue()) {
-                    case "Grupos":
-                        cbequpo1.getItems().clear();
-                        cbequipo2.getItems().clear();
-                        cbgrupo.setVisible(true);
-                        lbgrupo.setVisible(true);
-                        cbgrupo.getItems().clear();
-                        cbgrupo.getItems().addAll("A", "B", "C", "D", "E", "F", "G", "H");
-                        cbgrupo.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent e) {
-                                if (cbgrupo.getValue() != null) {
-                                    cargarEquiposEnComboBox(cbgrupo.getValue().charAt(0));
-                                }
-                            }
-                        });
-
-                        break;
-                    case "Ronda de 16":
-
-                        cargarEquipoFase("Round of 16");
-
-                        break;
-                    case "Cuartos de Final":
-                        cargarEquipoFase("Quarter-finals");
-
-                        break;
-                    case "Semifinal":
-                        cargarEquipoFase("Semi-finals");
-
-                        break;
-                    case "Final":
-                        cargarEquipoFase("Final");
-//                      
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        });
-
-        btnconsultar.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                partidoescena.getChildren().clear();
-                try {
-                    consultar();
-                } catch (NullPointerException n) {
-                    Label lb =new Label("No se ha seleccionado equipos.");
-                    partidoescena.getChildren().add(lb);
-                } catch (Exception exce) {
-                    System.out.println("Se ha generado una excepción");
-                }
-            }
-        });
-    }
-
     private VBox crearContenedorEquipo(int numeroDeJugadores, String nombreEquipo) {
         VBox contenedorEquipo = new VBox();
         contenedorEquipo.setStyle("-fx-background-color:white");
@@ -383,7 +313,7 @@ public class ConsultaPartidosController implements Initializable {
         Label equipo = new Label(nombreEquipo);
         equipo.setStyle("-fx-font-weight: bold");
         equipo.setPadding(new Insets(10, 0, 10, 0));
-        ScrollPane scrollPane = new ScrollPane();       
+        ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         HBox prueba = new HBox();
         prueba.setStyle("-fx-background-color:white");
@@ -412,9 +342,11 @@ public class ConsultaPartidosController implements Initializable {
     }
 
     /**
-     * El método recibe un caracter como parametro, el parametro indica el grupo al que pertenecerán
-     * los equipos que se obtendrán tras utilizar el metodo llenarGrupo. Una vez obtenidos el arrayList de equipos
-     * que pertenecen al grupo indicado en el paramentro, se carga en los combobox las listas.
+     * El método recibe un caracter como parametro, el parametro indica el grupo
+     * al que pertenecerán los equipos que se obtendrán tras utilizar el metodo
+     * llenarGrupo. Una vez obtenidos el arrayList de equipos que pertenecen al
+     * grupo indicado en el paramentro, se carga en los combobox las listas.
+     *
      * @param character
      */
     public void cargarEquiposEnComboBox(char character) {
@@ -424,9 +356,11 @@ public class ConsultaPartidosController implements Initializable {
     }
 
     /**
-     * El método recibe la fase de la que se desea obtener los equipos.
-     * A la vez oculta el comboBox de grupo y se llena un ArrayList de equipos con el método llenar fase.
-     * Se cargan a los comboBox de equipos de la lista obtenida en base al parametro.
+     * El método recibe la fase de la que se desea obtener los equipos. A la vez
+     * oculta el comboBox de grupo y se llena un ArrayList de equipos con el
+     * método llenar fase. Se cargan a los comboBox de equipos de la lista
+     * obtenida en base al parametro.
+     *
      * @param fase
      */
     public void cargarEquipoFase(String fase) {
@@ -436,9 +370,12 @@ public class ConsultaPartidosController implements Initializable {
         cbequpo1.getItems().setAll(equipos16);
         cbequipo2.getItems().setAll(equipos16);
     }
-    
+
     /**
-     *Método utilizado para hacer la traducción de una fecha dada en ingles al español.
+     * Método utilizado para obtener una fecha a partir de un string con formato
+     * dd/mm/yyyy y que la devuelve, en español, con el nombre del día, el
+     * número, el nombre de mes y el año
+     *
      * @param fecha
      * @return
      */
@@ -466,17 +403,20 @@ public class ConsultaPartidosController implements Initializable {
         }
         return fecha1;
     }
-    
+
     /**
-     * El método muestra los detalles del jugador
-     * Se crea una escena y todos los elementos necesarios para mostar en una ventana aparte la imagen y los detalles del jugador 
-     * se le asigna un setOnMouseClicked para que al dar click en la imagen se asignen la respectiva información a los controles
-     * Posteriormente se crea un hilo para manejar el tiempo que se presentará la imagen.
-     * Una vez el temporizador llegue a 0, se cierra la ventana.
+     * El método muestra el nombre del jugador y su imagen en la ventana
+     * DetalleEquipos Se crea una escena y todos los elementos necesarios para
+     * mostar en una ventana aparte la imagen y los detalles del jugador se le
+     * asigna un setOnMouseClicked para que al dar click en la imagen se asignen
+     * la respectiva información a los controles Posteriormente se crea un hilo
+     * para manejar el tiempo que se presentará la imagen. Una vez el
+     * temporizador llegue a 0, se cierra la ventana.
+     *
      * @param contenedor
      * @param jugadorSeleccionado
      */
-    public void crearHiloDetallesJugador(VBox contenedor,Jugador jugadorSeleccionado) {
+    public void crearHiloDetallesJugador(VBox contenedor, Jugador jugadorSeleccionado) {
         ImageView imgvASetear = (ImageView) contenedor.getChildren().get(0);
         imgvASetear.setOnMouseClicked(e -> {
             VBox detalleJugador = new VBox();
@@ -541,10 +481,127 @@ public class ConsultaPartidosController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                imgvASetear.setImage(imgJugador);
+                if(imgJugador!=null){
+                    imgvASetear.setImage(imgJugador);
+                }else{
+                    Image imgPorDefecto = ManejoArchivos.abrirImagen(Principal.pathImgGeneral+"defaultPlayer.png");
+                    imgvASetear.setImage(imgPorDefecto);
+                }
                 lblNombre.setText(jugadorSeleccionado.getNombre());
                 lblJugador.setVisible(false);
             }
         });
+    }
+
+    /**
+     * Este método recupera la selección realizada por el usuario en el comboBox
+     * de fase para luego verificar si es de grupos y habilitar el comboBox
+     * correspondiente y que se añada el manejo de eventos para que se puedan
+     * cargar los equipos según corresponda o si es otra de las fases para
+     * cargar los equipos directamente.
+     */
+    public void llenarComboBoxEquipo() {
+        switch (cbfase.getValue()) {
+            case "Grupos":
+                cbequpo1.getItems().clear();
+                cbequipo2.getItems().clear();
+                cbgrupo.setVisible(true);
+                lbgrupo.setVisible(true);
+                cbgrupo.getItems().clear();
+                cbgrupo.getItems().addAll("A", "B", "C", "D", "E", "F", "G", "H");
+                cbgrupo.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                        if (cbgrupo.getValue() != null) {
+                            cargarEquiposEnComboBox(cbgrupo.getValue().charAt(0));
+                        }
+                    }
+                });
+
+                break;
+            case "Ronda de 16":
+
+                cargarEquipoFase("Round of 16");
+
+                break;
+            case "Cuartos de Final":
+                cargarEquipoFase("Quarter-finals");
+
+                break;
+            case "Semifinal":
+                cargarEquipoFase("Semi-finals");
+
+                break;
+            case "Final":
+                cargarEquipoFase("Final");
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Este método recupera la selección del usuario del partido disputado
+     * por los equipos seleccionados y carga la ventana DetalleEquipos con
+     * sus jugadores de forma aleatoria, además, cierra la ventana anterior.
+     * @param btnVerDetalles
+     */
+    public void cargarVentanaDetalleEquipos(Button btnVerDetalles) {
+        String nombreEquipo1 = cbequpo1.getValue().getNombre();
+        int cantidadJugadoresEquipo1 = cbequpo1.getValue().getJugadores().size();
+        String nombreEquipo2 = cbequipo2.getValue().getNombre();
+        int cantidadJugadoresEquipo2 = cbequipo2.getValue().getJugadores().size();
+        Stage stage = (Stage) btnVerDetalles.getScene().getWindow();
+        stage.close();
+        VBox root = new VBox();
+        root.setStyle("-fx-background-color:white");
+        root.setSpacing(10);
+        Scene scene = new Scene(root, 640, 520);
+        Stage ventanaDetalleEquipos = new Stage();
+        ventanaDetalleEquipos.setScene(scene);
+        ventanaDetalleEquipos.show();
+        root.setAlignment(Pos.CENTER);
+        Label titulo = new Label("Detalle de equipos");
+        titulo.setStyle("-fx-font-weight: bold ;-fx-font-size:16");
+        titulo.setPadding(new Insets(5));
+        VBox equipo1 = crearContenedorEquipo(cantidadJugadoresEquipo1, nombreEquipo1);
+        VBox equipo2 = crearContenedorEquipo(cantidadJugadoresEquipo2, nombreEquipo2);
+        root.getChildren().addAll(titulo, equipo1, equipo2);
+        ScrollPane scrollEquipo1 = (ScrollPane) equipo1.getChildren().get(1);
+        HBox hbEquipo1 = (HBox) scrollEquipo1.getContent();
+        List<Node> vBoxsEquipo1 = hbEquipo1.getChildren();
+        ScrollPane scrollEquipo2 = (ScrollPane) equipo2.getChildren().get(1);
+        HBox hbEquipo2 = (HBox) scrollEquipo2.getContent();
+        List<Node> vBoxsEquipo2 = hbEquipo2.getChildren();
+        List<Integer> numeros = IntStream.rangeClosed(0, 45).boxed().collect(Collectors.toList());
+        Thread hilo = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 46; i++) {
+                    try {
+                        if (i == 0) {
+                            Thread.sleep(5000);
+                        } else {
+                            Thread.sleep(200);
+                        }
+                    } catch (InterruptedException inter) {
+
+                    }
+                    Collections.shuffle(numeros);
+                    int indiceAleatorio = numeros.get(0);
+                    if (indiceAleatorio >= 23) {
+                        Jugador jugadorSeleccionado = cbequipo2.getValue().getJugadores().get(indiceAleatorio - 23);
+                        VBox contenedor = (VBox) vBoxsEquipo2.get(indiceAleatorio - 23);
+                        crearHiloDetallesJugador(contenedor, jugadorSeleccionado);
+                    } else {
+                        Jugador jugadorSeleccionado = cbequpo1.getValue().getJugadores().get(indiceAleatorio);
+                        VBox contenedor = (VBox) vBoxsEquipo1.get(indiceAleatorio);
+                        crearHiloDetallesJugador(contenedor, jugadorSeleccionado);
+                    }
+                    numeros.remove(0);
+                }
+            }
+        });
+        hilo.start();
     }
 }
