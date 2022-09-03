@@ -115,7 +115,6 @@ public class ManejoArchivos {
             ArrayList<String[] > arregloFinal= new ArrayList();
             for(int a=1;a<variableGenerado.size();a++){
                 String[] linea=variableGenerado.get(a).split(separador); 
-                System.out.println(Arrays.toString(linea));
                 arregloFinal.add(linea);
                 
         }
