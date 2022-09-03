@@ -62,7 +62,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
-            <Button fx:id="btnconsultar" mnemonicParsing="false" prefHeight="24.0" prefWidth="114.0" style="-fx-background-color: #20def7;" text="Consultar" textFill="WHITE" />
+            <Button fx:id="btnconsultar" mnemonicParsing="false" prefHeight="24.0" prefWidth="114.0" style="-fx-background-color: #1cacde;" text="Consultar" textFill="WHITE" />
          </children>
       </HBox>
       <VBox fx:id="partidoescena" prefHeight="236.0" prefWidth="600.0" style="-fx-background-color: white;" />
