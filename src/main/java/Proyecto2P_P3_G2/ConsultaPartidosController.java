@@ -135,13 +135,16 @@ public class ConsultaPartidosController implements Initializable {
             Stage stage = (Stage) btnVerDetalles.getScene().getWindow();
             stage.close();
             VBox root = new VBox();
-            Scene scene = new Scene(root,640,480);                                
+            root.setSpacing(10);
+            Scene scene = new Scene(root,640,520);                                
             Stage ventanaDetalleEquipos = new Stage();
             ventanaDetalleEquipos.setScene(scene);
             ventanaDetalleEquipos.show();
+            root.setAlignment(Pos.CENTER);
+            Label titulo = new Label("Detalle de equipos");          
+            titulo.setStyle("-fx-font-weight: bold ;-fx-font-size:16");
             
-            Label titulo = new Label();
-            titulo.setTextAlignment(TextAlignment.CENTER);
+            titulo.setPadding(new Insets(5));
             VBox equipo1=crearContenedorEquipo(cantidadJugadoresEquipo1,nombreEquipo1);
             VBox equipo2=crearContenedorEquipo(cantidadJugadoresEquipo2,nombreEquipo2);
             root.getChildren().addAll(titulo,equipo1,equipo2);
@@ -428,18 +431,24 @@ public class ConsultaPartidosController implements Initializable {
         });
     }
     private VBox crearContenedorEquipo(int numeroDeJugadores, String nombreEquipo) {
-        VBox contenedorEquipo = new VBox();
-        Label equipo = new Label(nombreEquipo);     
+        VBox contenedorEquipo = new VBox();       
+        contenedorEquipo.setPadding(new Insets(5,15,5,15));
+        Label equipo = new Label(nombreEquipo); 
+        equipo.setStyle("-fx-font-weight: bold");          
+        equipo.setPadding(new Insets(10,0,10,0));
         ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
         HBox prueba=new HBox();
-        prueba.setSpacing(20);
-        prueba.setPrefHeight(150);
+        prueba.setPadding(new Insets(15,15,10,15));
+        prueba.setSpacing(30);
+        prueba.setPrefHeight(160);
         scrollPane.setContent(prueba);
         for (int i = 0; i < numeroDeJugadores; i++) {
             VBox vbox = new VBox();
             vbox.setAlignment(Pos.CENTER);        
             Label nombre = new Label("Nombre");          
             Label jugador = new Label("Jugador");
+            
             Image porDefecto=ManejoArchivos.abrirImagen(Principal.pathImg + "DEFAULT.png");
             ImageView imgv = new ImageView(porDefecto);
             imgv.setFitHeight(90);
