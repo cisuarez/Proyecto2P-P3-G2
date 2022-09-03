@@ -23,6 +23,17 @@ public class Partido {
     private String fase;
     private char grupo;
 
+    /**
+     *
+     * @param fecha
+     * @param hora
+     * @param estadio
+     * @param ciudad
+     * @param equipoLocal
+     * @param equipoVisitante
+     * @param marcador
+     * @param fase
+     */
     public Partido(String fecha, String hora, String estadio, String ciudad, Equipo equipoLocal, Equipo equipoVisitante, String marcador, String fase) {
         this.fecha = fecha;
         this.hora = hora;
@@ -34,74 +45,146 @@ public class Partido {
         this.fase = fase;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFecha() {
         return fecha;
     }
 
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHora() {
         return hora;
     }
 
+    /**
+     *
+     * @param hora
+     */
     public void setHora(String hora) {
         this.hora = hora;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEstadio() {
         return estadio;
     }
 
+    /**
+     *
+     * @param estadio
+     */
     public void setEstadio(String estadio) {
         this.estadio = estadio;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCiudad() {
         return ciudad;
     }
 
+    /**
+     *
+     * @param ciudad
+     */
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
 
+    /**
+     *
+     * @return
+     */
     public Equipo getEquipoLocal() {
         return equipoLocal;
     }
 
+    /**
+     *
+     * @param equipoLocal
+     */
     public void setEquipoLocal(Equipo equipoLocal) {
         this.equipoLocal = equipoLocal;
     }
 
+    /**
+     *
+     * @return
+     */
     public Equipo getEquipoVisitante() {
         return equipoVisitante;
     }
 
+    /**
+     *
+     * @param equipoVisitante
+     */
     public void setEquipoVisitante(Equipo equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMarcador() {
         return marcador;
     }
 
+    /**
+     *
+     * @param marcador
+     */
     public void setMarcador(String marcador) {
         this.marcador = marcador;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFase() {
         return fase;
     }
 
+    /**
+     *
+     * @param fase
+     */
     public void setFase(String fase) {
         this.fase = fase;
     }
 
+    /**
+     *
+     * @return
+     */
     public char getGrupo() {
         return grupo;
     }
 
+    /**
+     *
+     * @param grupo
+     */
     public void setGrupo(char grupo) {
         this.grupo = grupo;
     }
@@ -131,9 +214,10 @@ public class Partido {
         return arregloPartido;
     }
     
- 
-    
-    
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Partido{" + "fecha=" + fecha + ", hora=" + hora + ", estadio=" + estadio + ", ciudad=" + ciudad + ", equipoLocal=" + equipoLocal + ", equipoVisitante=" + equipoVisitante + ", marcador=" + marcador + ", fase=" + fase + ", grupo=" + grupo + '}';
