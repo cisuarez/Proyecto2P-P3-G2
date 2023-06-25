@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Herramientas.CreacionData;
 import java.util.ArrayList;
 import Herramientas.ManejoArchivos;
 import Proyecto2P_P3_G2.Principal;
@@ -46,30 +47,7 @@ public class Mundial {
      * de mundiales.
      * @return
      */
-    public static ArrayList<Mundial> cargarMundiales() {
-        ArrayList<String[]> abreviaturasEquipos=ManejoArchivos.generarArreglo(Principal.pathFiles+"Abreviaturas.csv",",");
-        ArrayList<Mundial> arregloMundial = new ArrayList();
-        ArrayList<String[]> listaArreglo = ManejoArchivos.generarArreglo(Principal.pathFiles+"WorldCups.csv", ",");
-        for (String[] ele : listaArreglo) {
-            ArrayList<Equipo> finalistas = new ArrayList<>();
-            for (int i = 2; i < 6; i++) {
-                Equipo equipo = new Equipo(ele[i].trim());
-                for(String[] datos:abreviaturasEquipos){
-                    if(equipo.getNombre().equals(datos[0])){
-                        equipo.setAbreviatura(datos[1]);
-                    }
-                }
-                for (String[] dato : listaArreglo) {
-                    if (dato[2].trim().equals(equipo.getNombre())) {
-                        equipo.setMundialesGanados(equipo.getMundialesGanados() + 1);
-                    }
-                }
-                finalistas.add(equipo);
-            }
-            arregloMundial.add(new Mundial(Integer.valueOf(ele[0].trim()), Integer.valueOf(ele[6].trim()), Integer.valueOf(ele[7].trim()), ele[9].trim(), Integer.valueOf(ele[8].trim()), finalistas));
-        }
-        return arregloMundial;
-    }
+    
 
     /**
      *

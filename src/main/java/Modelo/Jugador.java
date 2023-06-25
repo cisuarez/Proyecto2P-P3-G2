@@ -11,13 +11,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import Herramientas.ILlenarArrays;
 
 /**
  *
  * @author Michael
  */
-public class Jugador implements Serializable {
+public class Jugador implements Serializable, ILlenarArrays {
     private String nombre;
     private String imgPath;
     private int dorsal;
@@ -126,33 +126,8 @@ public class Jugador implements Serializable {
      * a una lista que finalmente es retornada.
      * @return
      */
-    public static ArrayList<Jugador> cargarJugadores(){
-        ArrayList<Jugador> jugadores=new ArrayList<>();
-        try(BufferedReader bf=new BufferedReader(new FileReader(Principal.pathFiles+"WorldCupPlayersBrasil2014.csv"))){
-            bf.readLine();
-            for(int i=0;i<2009;i++){
-                String[] datos=bf.readLine().split(",");
-                if(!jugadores.isEmpty()){
-                    Jugador j2=null;
-                    for(Jugador j:jugadores){
-                        if(datos[6].trim().equals(j.getNombre())==true&&datos[2].trim().equals(j.getAbrEquipo())){
-                            j2=j;
-                        }
-                    }
-                    if(j2==null){
-                        jugadores.add(new Jugador(datos[6].trim(),datos[6].trim()+".png",Integer.valueOf(datos[5].trim()),datos[3].split("\\(")[0].trim(),datos[2].trim()));
-                    }
-                }else{
-                    jugadores.add(new Jugador(datos[6].trim(),datos[6].trim()+".jpg",Integer.valueOf(datos[5].trim()),datos[3].split("\\(")[0].trim(),datos[2].trim()));
-                }
-            }
-        }catch(FileNotFoundException f){
-            
-        }catch(IOException io){
-            
-        }
-        return jugadores;
-    }
+    
+    
 
     /**
      * Se sobreescribe el método toString para que este retorne el nombre del 
@@ -163,6 +138,8 @@ public class Jugador implements Serializable {
     public String toString() {
         return nombre;
     }
+
+    
     
     
     

@@ -4,16 +4,18 @@
  */
 package Modelo;
 
+import Herramientas.CreacionData;
 import Herramientas.ManejoArchivos;
 import Proyecto2P_P3_G2.Principal;
 import java.util.ArrayList;
 import java.util.Objects;
+import Herramientas.ILlenarArrays;
 
 /**
  *
  * @author Michael
  */
-public class Equipo implements Comparable<Equipo> {
+public class Equipo implements Comparable<Equipo>, ILlenarArrays {
 
     private String nombre;
     private ArrayList<Jugador> jugadores;
@@ -21,7 +23,7 @@ public class Equipo implements Comparable<Equipo> {
     private String abreviatura;
 
     
-    private static ArrayList<Jugador> jugadoresCargados=Jugador.cargarJugadores();
+    private static ArrayList<Jugador> jugadoresCargados=ILlenarArrays.cargarJugadores();
     
     /**
      *
@@ -161,19 +163,12 @@ public class Equipo implements Comparable<Equipo> {
         this.jugadores=jugadoresE;
     }
 
-    /**
-     *
-     * @param nombreArchivo
-     * @return
-     */
-    public static ArrayList<Equipo> cargarEquipos(String nombreArchivo){
-        ArrayList<Equipo> arregloEquipo=new ArrayList();
-        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
-        for(String[] ele:listaArreglo){
-            Equipo equipo=new Equipo(ele[5].trim(),ele[19].trim());         
-            arregloEquipo.add(equipo);
-        }
-        return arregloEquipo;
+    @Override
+    public void buscarELemento(Object objeto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
+
 
 }

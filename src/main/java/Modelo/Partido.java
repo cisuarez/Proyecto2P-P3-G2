@@ -4,6 +4,8 @@
  */
 package Modelo;
 
+import Herramientas.CreacionData;
+import Herramientas.ILlenarArrays;
 import Herramientas.ManejoArchivos;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Andres
  */
-public class Partido {
+public class Partido implements ILlenarArrays{
 
     private String fecha;
     private String hora;
@@ -196,23 +198,7 @@ public class Partido {
      * @param nombreArchivo
      * @return 
      */
-    public static ArrayList<Partido> cargarPartidos(String nombreArchivo){
-        ArrayList<Partido> arregloPartido=new ArrayList();
-        ArrayList<String[]> listaArreglo=ManejoArchivos.generarArreglo(nombreArchivo, "\\|");
-        for(String[] ele:listaArreglo){
-            //(String fecha, String hora, String estadio, String ciudad, String equipoLocal, String equipoVisitante, String marcador, String fase)
-            Partido partidito= new Partido(ele[1].split("-")[0].trim(),ele[1].split("-")[1].trim(),ele[3].trim(),ele[4].trim(), new Equipo(ele[5].trim(),ele[18].trim()),new Equipo(ele[8].trim(),ele[19].trim()),ele[6].trim()+"-"+ele[7].trim(),ele[2].trim());
-            if(ele[2].split(" ")[0].equals("Group")){
-               partidito.setGrupo(ele[2].split(" ")[1].charAt(0));
-               
-            }
-//            System.out.println(partidito.getEquipoLocal());
-//            System.out.println(partidito.getEquipoVisitante());
-//            System.out.println(partidito.getGrupo());
-            arregloPartido.add(partidito);
-        }
-        return arregloPartido;
-    }
+    
     
     /**
      *
@@ -222,4 +208,6 @@ public class Partido {
     public String toString() {
         return "Partido{" + "fecha=" + fecha + ", hora=" + hora + ", estadio=" + estadio + ", ciudad=" + ciudad + ", equipoLocal=" + equipoLocal + ", equipoVisitante=" + equipoVisitante + ", marcador=" + marcador + ", fase=" + fase + ", grupo=" + grupo + '}';
     }
+
+   
 }

@@ -19,7 +19,7 @@ import javafx.scene.image.Image;
  * Esta clase contiene funciones que se utilizan para obtener recursos del archivo
  * @author CJAA
  */
-public class ManejoArchivos {
+public class ManejoArchivos implements IManejoArchivos{
     
     /**
      * Este método lee los elementos que pertenecen a un archivo
@@ -27,7 +27,7 @@ public class ManejoArchivos {
      * @return ArrayList que contiene los lineas del archivo
      */
 
-    public static ArrayList<String> LeeFichero(String nombrearchivo) {
+    public ArrayList<String> LeeFichero(String nombrearchivo) {
         ArrayList<String> lineas = new ArrayList<>();
         File archivo = null;
         FileReader fr = null/**
@@ -76,7 +76,7 @@ public class ManejoArchivos {
      * @param linea es un String el cual será agregaddo al archivo
      * Al finalizar el método se habrá escrito el String ingresado en los parametros en el archivo ingresado en los parametros
      */
-    public static void EscribirArchivo(String nombreArchivo, String linea) {
+    public void EscribirArchivo(String nombreArchivo, String linea) {
 
         FileWriter fichero = null;
         BufferedWriter bw = null;
@@ -105,22 +105,8 @@ public class ManejoArchivos {
         
     }
 
-   public static ArrayList<String[]> generarArreglo(String nombreArchivo,String separador){
-            //Se cree una lista de arreglos de Strings
-            //Se crea una lista de Strings que guardará las líneas que devuelve el método LeeFichero
-            //Luego se hace split a cada línea y cada arreglo de Strings se agrega a la lista de arreglos de 
-            //String y se la retorna
-            ArrayList<String> variableGenerado;
-            variableGenerado=LeeFichero(nombreArchivo);
-            ArrayList<String[] > arregloFinal= new ArrayList();
-            for(int a=1;a<variableGenerado.size();a++){
-                String[] linea=variableGenerado.get(a).split(separador); 
-                arregloFinal.add(linea);
-                
-        }
-        return arregloFinal;
-    }
-   public static Image abrirImagen(String nombreImagen){
+   
+   public Image abrirImagen(String nombreImagen){
        Image img=null;
        try(FileInputStream f=new FileInputStream(nombreImagen)){
            img=new Image(f);
@@ -131,4 +117,9 @@ public class ManejoArchivos {
        }
        return img;
    }
+
+    @Override
+    public ArrayList<String[]> generarArreglo(String nombreArchivo, String separador) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
