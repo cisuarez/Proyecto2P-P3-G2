@@ -30,10 +30,10 @@ public class Equipo implements Comparable<Equipo>, ILlenarArrays {
      * @param nombre
      * @param abreviatura
      */
-    public Equipo(String nombre, String abreviatura) {
+    public Equipo(String nombre, String abreviatura,ArrayList<Jugador> jugadoresCargados) {
         this.nombre = nombre;
         this.abreviatura = abreviatura;
-        llenarJugadores(abreviatura);
+        this.jugadoresCargados = jugadoresCargados;
     }
 
     /**
@@ -153,7 +153,7 @@ public class Equipo implements Comparable<Equipo>, ILlenarArrays {
         return this.nombre.compareTo(e.nombre);
     }
 
-    private void llenarJugadores(String teamIniciales) {
+    private void llenarJugadores(String teamIniciales,JugadorInterface jugadorInterface) {
         ArrayList<Jugador> jugadoresE=new ArrayList<>();
         for(Jugador j:jugadoresCargados){
             if(teamIniciales.equals(j.getAbrEquipo())==true){
