@@ -12,12 +12,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import Herramientas.ILlenarArrays;
+import Herramienta.JugadorInterface
 
 /**
  *
  * @author Michael
  */
-public class Jugador implements Serializable, ILlenarArrays {
+public class Jugador implements Serializable, ILlenarArrays, JugadorInterface {
     private String nombre;
     private String imgPath;
     private int dorsal;
