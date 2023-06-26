@@ -19,14 +19,14 @@ import javafx.scene.image.Image;
  * Esta clase contiene funciones que se utilizan para obtener recursos del archivo
  * @author CJAA
  */
-public class ManejoArchivos implements IManejoArchivos{
-    
+public class ManejoArchivos implements IManejoArchivos,ArchivoManajer{
+
     /**
      * Este método lee los elementos que pertenecen a un archivo
      * @param nombrearchivo del cual se extraen los datos para devolver el Arraylist de Strings
      * @return ArrayList que contiene los lineas del archivo
      */
-
+    @Override
     public ArrayList<String> LeeFichero(String nombrearchivo) {
         ArrayList<String> lineas = new ArrayList<>();
         File archivo = null;
@@ -76,6 +76,7 @@ public class ManejoArchivos implements IManejoArchivos{
      * @param linea es un String el cual será agregaddo al archivo
      * Al finalizar el método se habrá escrito el String ingresado en los parametros en el archivo ingresado en los parametros
      */
+    @Override
     public void EscribirArchivo(String nombreArchivo, String linea) {
 
         FileWriter fichero = null;
