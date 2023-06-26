@@ -19,7 +19,7 @@ import javafx.scene.image.Image;
  * Esta clase contiene funciones que se utilizan para obtener recursos del archivo
  * @author CJAA
  */
-public class ManejoArchivos implements IManejoArchivos,ArchivoManajer{
+public class ManejoArchivos implements IManejoArchivos,ArchivoManajer,ManejoImagen{
 
     /**
      * Este método lee los elementos que pertenecen a un archivo
@@ -106,7 +106,7 @@ public class ManejoArchivos implements IManejoArchivos,ArchivoManajer{
         
     }
 
-   
+  @Override 
    public Image abrirImagen(String nombreImagen){
        Image img=null;
        try(FileInputStream f=new FileInputStream(nombreImagen)){
