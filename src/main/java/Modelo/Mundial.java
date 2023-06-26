@@ -47,7 +47,10 @@ public class Mundial {
      * de mundiales.
      * @return
      */
-    
+
+    ArchivoManager archivoManager = new ManejoArchivos();
+    ArrayList<Mundial> mundiales = Mundial.cargarMundiales(ArchivoManager archivoManager); // Cargar los datos de los mundiales
+
 
     /**
      *
